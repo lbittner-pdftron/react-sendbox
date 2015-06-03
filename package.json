@@ -1,0 +1,31 @@
+{
+  "name": "react-sendbox",
+  "version": "0.0.1",
+  "description": "Reactjs playground",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server"
+  },
+  "author": "Sardor Isakov",
+  "license": "ISC",
+  "devDependencies": {
+    "node-libs-browser": "~0.5.2",
+    "webpack": "~1.9.10",
+    "jsx-loader": "~0.13.2",
+    "react-hot-loader": "~1.2.7"
+  },
+  "dependencies": {
+    "express": "~4.12.4",
+    "http-proxy": "~1.11.1",
+    "webpack-dev-server": "~1.9.0",
+    "babel-loader": "~5.1.3",
+    "babel-core": "~5.4.7",
+    "style-loader": "~0.12.3",
+    "css-loader": "~0.14.4",
+    "react": "~0.13.3",
+    "json-loader": "~0.5.2",
+    "classnames": "~2.1.2",
+    "newforms": "~0.12.1"
+  }
+}

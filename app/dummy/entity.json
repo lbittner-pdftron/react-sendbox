@@ -1,0 +1,312 @@
+[
+	
+	{
+		"entityTypes": {
+			"name": "tv_commercial_project",
+			"label": "TV Commercial",
+			"description": "A test project for TV commercials",
+			"templateType": "project",
+			"subdirs": ["/projects"],
+			"createdBy": "cjohnson"
+		},
+		"fields": [
+			{
+				"name": "project_name",
+				"description": "Project Name",
+				"label": "Project Name",
+				"type": "String",
+				"required": true,
+				"readonly": false,
+				"broadcastChanges": true
+			},
+			{
+				"name": "project_root",
+				"description": "Project Root",
+				"label": "Project Root",
+				"type": "String",
+				"required": true,
+				"readonly": false,
+				"broadcastChanges": true
+			},
+			{
+				"name": "status",
+				"description": "Status",
+				"label": "Status",
+				"type": "Select",
+				"options": [
+					"Bidding",
+					"Awarded",
+					"Not Awarded",
+					"Completed",
+					"Archiving"
+				],
+				"default": "Bidding",
+				"required": true,
+				"readonly": false,
+				"broadcastChanges": true
+			},
+			{
+				"name": "product_type",
+				"description": "The kind of product advertised.",
+				"label": "Product Type",
+				"type": "Select",
+				"options": [
+					"Shampoo",
+					"Beer",
+					"Cars"
+				],
+				"default": "Beer",
+				"required": true,
+				"readonly": false,
+				"broadcastChanges": true
+			}
+		]
+	},
+
+	{
+		"entityTypes": {
+			"name": "movie_projects",
+			"label": "Movie Projects",
+			"description": "A generic project",
+			"templateType": "project",
+			"subdirs": [
+				"/movie_projects"
+			],
+			"createdBy": ""
+		},
+		"fields": [
+			{
+				"name": "project_name",
+				"description": "Project Name",
+				"label": "Project Name",
+				"type": "String",
+				"required": true,
+				"readonly": false,
+				"broadcastChanges": true
+			},
+			{
+				"name": "project_root",
+				"description": "Project Root",
+				"label": "Project Root",
+				"type": "String",
+				"required": true,
+				"readonly": false,
+				"broadcastChanges": true
+			},
+			{
+				"name": "status",
+				"description": "Status",
+				"label": "Status",
+				"type": "Select",
+				"options": [
+					"Bidding",
+					"Awarded",
+					"Not Awarded",
+					"Completed",
+					"Archiving"
+				],
+				"default": "Bidding",
+				"required": true,
+				"readonly": false,
+				"broadcastChanges": true
+			},
+			{
+				"name": "project_resolution",
+				"description": "Project Resolution",
+				"label": "Project Resolution",
+				"type": "Select",
+				"options": [
+					"2k_Super35_24p",
+					"HDTV_1080_2398",
+					"4k_Super35_24p",
+					"PAL_50",
+					"NTSC_5994"
+				],
+				"required": true,
+				"readonly": false,
+				"broadcastChanges": false
+			},
+			{
+				"name": "colorspace_settings",
+				"description": "Colorspace Settings",
+				"label": "Colorspace Settings",
+				"type": "Select",
+				"options": [
+					"AlexaV3LogC",
+					"Slog3",
+					"Slog2"
+				],
+				"required": true,
+				"readonly": false,
+				"broadcastChanges": false
+			},
+			{
+				"name": "3d_resolution",
+				"description": "3d Resolution",
+				"label": "3d Resolution",
+				"type": "Select",
+				"options": [
+					"ViperANA_2k 1920 1080 2.37",
+					"Super35_4K 4096 3112 1.316",
+					"Super35_2K 2048 1556 1.316"
+				],
+				"required": true,
+				"readonly": false,
+				"broadcastChanges": false
+			},
+			{
+				"name": "supervisor",
+				"description": "Supervisor",
+				"label": "Supervisor",
+				"type": "String",
+				"required": true,
+				"readonly": false,
+				"broadcastChanges": true
+			},
+			{
+				"name": "2d_supervisor",
+				"description": "2D Supervisor",
+				"label": "2D Supervisor",
+				"type": "String",
+				"required": true,
+				"readonly": false,
+				"broadcastChanges": true
+			},
+			{
+				"name": "3d_supervisor",
+				"description": "3D Supervisor",
+				"label": "3D Supervisor",
+				"type": "String",
+				"required": false,
+				"readonly": false,
+				"broadcastChanges": true
+			},
+			{
+				"name": "2d_lead",
+				"description": "2D Lead",
+				"label": "2D Lead",
+				"type": "String",
+				"required": false,
+				"readonly": false,
+				"broadcastChanges": true
+			},
+			{
+				"name": "3d_lead",
+				"description": "3D Lead",
+				"label": "3D Lead",
+				"type": "String",
+				"required": false,
+				"readonly": false,
+				"broadcastChanges": true
+			},
+			{
+				"name": "producer",
+				"description": "Producer",
+				"label": "Producer",
+				"type": "String",
+				"required": false,
+				"readonly": false,
+				"broadcastChanges": true
+			},
+			{
+				"name": "coordinator",
+				"description": "Coordinator",
+				"label": "Coordinator",
+				"type": "String",
+				"required": false,
+				"readonly": false,
+				"broadcastChanges": true
+			},
+			{
+				"name": "email_list",
+				"description": "Email List",
+				"label": "Email List",
+				"type": "String",
+				"required": false,
+				"readonly": false,
+				"broadcastChanges": true
+			},
+			{
+				"name": "aspect_ratio",
+				"description": "Aspect Ratio",
+				"label": "Aspect Ratio",
+				"type": "String",
+				"required": false,
+				"readonly": false,
+				"broadcastChanges": true
+			},
+			{
+				"name": "protection_ratio",
+				"description": "Protection Ratio",
+				"label": "Protection Ratio",
+				"type": "String",
+				"required": false,
+				"readonly": false,
+				"broadcastChanges": true
+			},
+			{
+				"name": "frame_rate",
+				"description": "Frame Rate",
+				"label": "Frame Rate",
+				"type": "String",
+				"required": false,
+				"readonly": false,
+				"broadcastChanges": true
+			},
+			{
+				"name": "lut_file",
+				"description": "LUT File",
+				"label": "LUT File",
+				"type": "File",
+				"required": false,
+				"readonly": false,
+				"broadcastChanges": true
+			},
+			{
+				"name": "3d_lut_file",
+				"description": "3D LUT File",
+				"label": "3D LUT File",
+				"type": "File",
+				"required": false,
+				"readonly": false,
+				"broadcastChanges": true
+			},
+			{
+				"name": "aspect",
+				"description": "Aspect",
+				"label": "Aspect",
+				"type": "String",
+				"required": false,
+				"readonly": false,
+				"broadcastChanges": true
+			},
+			{
+				"name": "aspect_offset",
+				"description": "Aspect Offset",
+				"label": "Aspect Offset",
+				"type": "String",
+				"required": false,
+				"readonly": false,
+				"broadcastChanges": true
+			},
+			{
+				"name": "protect",
+				"description": "Protect",
+				"label": "Protect",
+				"type": "String",
+				"required": false,
+				"readonly": false,
+				"broadcastChanges": true
+			},
+			{
+				"name": "protect_offset",
+				"description": "Protect Offset",
+				"label": "Protect Offset",
+				"type": "String",
+				"required": false,
+				"readonly": false,
+				"broadcastChanges": true
+			}
+		]
+	}
+]
