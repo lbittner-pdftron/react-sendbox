@@ -1,5 +1,5 @@
 [
-	
+
 	{
 		"entityTypes": {
 			"name": "tv_commercial_project",
@@ -17,6 +17,7 @@
 				"type": "String",
 				"required": true,
 				"readonly": false,
+				"value":"test",
 				"broadcastChanges": true
 			},
 			{
@@ -26,13 +27,14 @@
 				"type": "String",
 				"required": true,
 				"readonly": false,
+				"value":"",
 				"broadcastChanges": true
 			},
 			{
 				"name": "status",
 				"description": "Status",
 				"label": "Status",
-				"type": "Select",
+				"type": "String",
 				"options": [
 					"Bidding",
 					"Awarded",
@@ -43,13 +45,14 @@
 				"default": "Bidding",
 				"required": true,
 				"readonly": false,
+				"value":"",
 				"broadcastChanges": true
 			},
 			{
 				"name": "product_type",
 				"description": "The kind of product advertised.",
 				"label": "Product Type",
-				"type": "Select",
+				"type": "String",
 				"options": [
 					"Shampoo",
 					"Beer",
@@ -58,6 +61,7 @@
 				"default": "Beer",
 				"required": true,
 				"readonly": false,
+				"value":"",
 				"broadcastChanges": true
 			}
 		]

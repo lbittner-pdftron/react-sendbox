@@ -12,18 +12,18 @@ var config = {
   entry: [
 
     // For hot style updates
-    // 'webpack/hot/dev-server', 
+    // 'webpack/hot/dev-server',
     'webpack/hot/only-dev-server',
     // The script refreshing the browser on none hot updates
-    'webpack-dev-server/client?http://localhost:8080', 
+    'webpack-dev-server/client?http://localhost:8080',
 
     // Our application
     mainPath],
   output: {
 
     // We need to give Webpack a path. It does not actually need it,
-    // because files are kept in memory in webpack-dev-server, but an 
-    // error will occur if nothing is specified. We use the buildPath 
+    // because files are kept in memory in webpack-dev-server, but an
+    // error will occur if nothing is specified. We use the buildPath
     // as that points to where the files will eventually be bundled
     // in production
     path: buildPath,
@@ -32,7 +32,7 @@ var config = {
     // Everything related to Webpack should go through a build path,
     // localhost:3000/build. That makes proxying easier to handle
     publicPath: '/build/'
-    
+
   },
   module: {
 
@@ -60,7 +60,7 @@ var config = {
       //tell webpack to use jsx-loader for all *.jsx files
       test: /\.jsx$/,
       loaders: ['react-hot', 'jsx?harmony'],
-      exclude: [nodeModulesPath]
+      exclude: [nodeModulesPath, mainPath]
     }
 
     ]
