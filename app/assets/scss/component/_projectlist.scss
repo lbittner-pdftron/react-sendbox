@@ -1,0 +1,307 @@
+.project-list-area{
+	padding: 1rem 1rem 3rem;
+	height: 100%;
+	overflow-y: auto !important;
+	position: absolute;
+}
+.project-list{
+	margin-top: 0.6rem;
+	.list-group-item{
+		background: none;
+		border: none;
+	}
+	.create-project{
+		text-transform: uppercase;
+		border: 3px dashed $charcoal;
+		min-height: 200px;
+		max-height: 200px;
+		text-align: center;
+		padding: 1rem;
+		width: 100%;
+		h3{
+			color: $base !important;
+		}
+		.add-sign{
+			font-size: 4.6rem;
+			line-height: 1.2;
+			color: $base;
+		}
+	}
+	.proj-display{
+		overflow: hidden;
+		position: relative;
+		height: 200px;
+		@include border-size (2px, rgba(0,0,0,0));
+		> img{
+			width: auto;
+			height: auto;
+			min-width: 100%;
+			min-height: 100%;
+			object-fit: fill !important;
+		}
+		.proj-overlay{
+			position: absolute;
+			bottom: 0;
+			height: 40%;
+			width: 100%;
+			background: rgba(0,0,0,0.8);
+			background-clip: content-box;
+			.proj-info{
+				padding: 0.6rem;
+				vertical-align: middle;
+				h5{
+					text-transform: uppercase;
+					margin: 0;
+				}
+				p{
+					font-size: 0.8rem;
+					margin: 0;
+				}
+				div.right{
+					-webkit-transform: translateY(25%);
+				    -ms-transform: translateY(25%);
+				    transform: translateY(25%);
+				    height: 100%;
+				    display:none;
+				    .button.tiny{
+				    	padding: 0.5rem 0.6rem !important;
+				    }
+				    a img{
+				    	width: 20px;
+				    }
+				}
+			}
+		}
+	}
+	.selected{
+		@include border-size (2px, $button-hover-color);
+		.proj-overlay > .proj-info > div.right{
+			display: block !important;
+		}
+	}
+}
+.left-list-area{
+	padding: 1rem 1rem 3rem;
+	height: 100%;
+	overflow: hidden;
+	position: absolute;
+}
+.proj-overall-status{
+	width: 100%;
+	margin: -1rem 0 0;
+	.row{
+		display: flex;
+		align-items: center;
+	}
+	ul li .proj-status{
+		@include border-radius(5px);
+		background-color: $dark-grey;
+		padding: 0.3rem !important;
+		margin-top: 0.6rem;
+		text-align: center;
+		h4, h5{
+			line-height: 1;
+		}
+	}
+}
+.library-panel{
+	background-color: $light-grey;
+	overflow: hidden;
+	padding: 0.4rem 1rem;
+	position: relative;
+	.library-top-area{
+		margin-bottom: 0.6rem;
+	}
+	.library-name{
+		font-size: 80%;
+		position: absolute;
+		top: 32px;
+		img{
+			width:15px;
+			margin-top: -5px;
+			margin-left: 5px;
+		}
+	}
+	.mavis-button{
+		margin-left: 10px;
+	}
+	.mavis-setting{
+		position: absolute;
+		top: 10px;
+		right: 15px;
+	}
+	.adv-search{
+		font-size: 70%;
+	}
+}
+.asset-list-area{
+	overflow-y: auto !important;
+}
+.asset-list{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	li{
+		padding: 0.4rem;
+		background: $dark-grey;
+		height: 60px;
+		margin-bottom: 0.6rem;
+		position: relative;
+		.asset-drag-area{
+			height: 60px;
+			width: 5px;
+			background: url(/images/asset-drag-pattern.png) repeat-y;
+			display: absolute;
+			margin: -0.4rem 0.4rem -0.4rem -0.4rem;
+		}
+		input[type="checkbox"] + label{
+			margin: 0;
+			margin-right: 0.4rem;
+		}
+		img{
+			width: 65px;
+			height: 100%;
+			margin-right: 0.4rem;
+		}
+		.asset-text-area{
+			p{
+				line-height: 1;
+				font-size: 0.8rem;
+			}
+		}
+		.asset-util{
+			> img.asset-dependency{
+				width: 20px;
+				height: 20px;
+				position: absolute;
+				display: block;
+				right: 5px;
+				margin: 0;
+			}
+			> a img.mavis-setting{
+				width: 20px;
+				height: 20px;
+				display: block;
+				position: absolute;
+				top: 50%;
+				right: 5px;
+				margin: 0;
+				bottom: 0 !important;
+			}
+		}
+	}
+}
+.collection-assets-list{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	li{
+		padding: 0.4rem;
+		margin-bottom: 0.6rem;
+		position: relative;
+		.bg-container{
+			background: $dark-grey;
+			padding: 0.4rem;
+			height: 60px;
+		}
+		.asset-drag-area{
+			height: 60px;
+			width: 5px;
+			background: url(/images/asset-drag-pattern.png) repeat-y;
+			display: absolute;
+			margin: -0.4rem 0.4rem -0.4rem -0.4rem;
+		}
+		input[type="checkbox"] + label{
+			margin: 0;
+			margin-right: 0.4rem;
+		}
+		img{
+			width: 65px;
+			height: 100%;
+			margin-right: 0.4rem;
+		}
+		.asset-text-area{
+			p{
+				line-height: 1;
+				font-size: 0.8rem;
+			}
+		}
+		.asset-util{
+			> img.asset-dependency{
+				width: 20px;
+				height: 20px;
+				position: absolute;
+				display: block;
+				right: 10px;
+				margin: 0;
+			}
+			> a img.mavis-setting{
+				width: 20px;
+				height: 20px;
+				display: block;
+				position: absolute;
+				top: 50%;
+				right: 10px;
+				margin: 0;
+				bottom: 0 !important;
+			}
+		}
+	}
+}
+.collection-top-area{
+	margin-top: 0.6rem;
+	.mavis-button{
+		margin-left: 10px;
+	}
+}
+.collection-header{
+	padding: 0.4rem;
+	border-bottom: $base 1px solid;
+	div{
+		display: inline-block;
+		text-align: center;
+		width: 17%;
+		&:first-child, &:last-child{
+			width: 6%;
+		}
+		input[type="checkbox"] + label{
+			margin-top: -0.4rem;
+		}
+	}
+}
+.collection-content{
+	overflow-y: auto !important;
+	overflow-x: hidden;
+	height: 100%;
+	font-size: 0.8rem;
+	.collection-item{
+		height: 60px;
+		background: $dark-grey;
+		margin-top: 0.6rem;
+		padding: 0.4rem;
+		align-items: center;
+		align-content: center;
+		wrap: nowrap;
+		.collection-detail{
+			display: flex;
+			width: 17%;
+			display: inline-block;
+			text-align: center;
+			&:first-child, &:last-child{
+				width: 6%;
+			}
+			input[type="checkbox"] + label{
+				margin-top: -20px;
+			}
+			img.shot-thumbnail{
+				width: 65px;
+				min-height: 100%;
+			}
+		}
+	}
+	.collection-assets{
+		padding: 1rem;
+		background: $light-grey;
+		width: 100%;
+	}
+}

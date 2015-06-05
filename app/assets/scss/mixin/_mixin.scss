@@ -1,0 +1,19 @@
+@mixin vertical-center {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+@mixin border-size($size, $color){
+  border: $size solid $color;
+}
+@mixin placeholder{
+  color: $light-grey;
+}
+@mixin border-radius($radius) {
+	-webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}

@@ -26,7 +26,7 @@ var ModalHeader = React.createClass({
 			return (<option value={value} key={'id_'+value}>
 					{option.entityTypes.label}</option>)
 		})
-		
+
 		return (<div>
 					<p>{this.props.title}</p>
 					<select id="lang" value={this.state.value} onChange={this.change}>

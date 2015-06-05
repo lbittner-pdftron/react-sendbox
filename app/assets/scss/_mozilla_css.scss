@@ -1,0 +1,19 @@
+@-moz-document url-prefix() {
+	#login{
+		form{
+		    input[type="text"], input[type="password"] {
+		    	padding:0 0 0 0.8rem !important;
+		    }
+		}
+	}
+	  .large-block-grid-4 > li {
+    	list-style: none;
+    	width: 22.5%; 
+	}
+	.project-list{
+		.create-project{
+			padding: 0 !important;
+			width: auto !important;
+		}
+	}
+}

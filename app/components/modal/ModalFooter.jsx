@@ -15,8 +15,8 @@ var ModalFooter = React.createClass({
 	},
 	render: function () {
 		return (<div>
-					<button onClick={this.handleSubmit}>Submit</button>
-					<button onClick={this.handleCancel}>Cancel</button>
+					<button className='button mavis-button radius' onClick={this.handleSubmit}>Submit</button>
+					<button className='button mavis-button radius' onClick={this.handleCancel}>Cancel</button>
 				</div>)
 	}
 })

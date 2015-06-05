@@ -30,15 +30,20 @@ var Modal = React.createClass({
 			selectedOption: value
 		})
 	},
+	close: function() {
+		React.unmountComponentAtNode(this.getDOMNode().parentNode);
+	},
 	render: function () {
 		var props = { bar: false };
 		return (<div>
-					<ModalHeader title={'Entity Create'} 
+					<button onClick={this.close}> x </button>
+					<ModalHeader title={'Entity Create'}
 						onSelect={this.handleSelect}
 						options={json} />
-					<ModalBody {...this.state} 
+					<ModalBody {...this.state}
 						options={json} />
 					<ModalFooter onBtnPress={this.handlerButtons} />
+
 				</div>)
 	}
 })

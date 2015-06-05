@@ -25,8 +25,9 @@ var Form = React.createClass({
 							<Form.Input {...this.state}  {...field} />
 						</Form.Row>)
 			}, this)
-		
-		return (<form ref={'MyForm'}>{rows}<button onClick={this.clear}>clear</button></form>)
+
+		return (<form ref={'MyForm'}>{rows}
+			<button className='button mavis-button radius' onClick={this.clear}>clear</button></form>)
 	}
 })
 Form.Row = React.createClass({
@@ -41,7 +42,7 @@ Form.Label = React.createClass({
 	render: function() {
 		return <label>{this.props.label}</label>;
 	}
-}) 
+})
 
 Form.Input = React.createClass({
 	normalize: function(text) {
@@ -64,7 +65,7 @@ Form.Input = React.createClass({
 			value = this.props.value;
 		}
 		console.log(value)
-		return <input type='text' name={this.props.name} 
+		return <input type='text' name={this.props.name}
 					defaultValue={value}
 					onChange={this.handleChange}
 					id={'id_' + this.props.name} />;
