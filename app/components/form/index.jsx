@@ -26,8 +26,7 @@ var Form = React.createClass({
 						</Form.Row>)
 			}, this)
 
-		return (<form ref={'MyForm'}>{rows}
-			<button className='button mavis-button radius' onClick={this.clear}>clear</button></form>)
+		return (<form ref={'MyForm'}>{rows}</form>)
 	}
 })
 Form.Row = React.createClass({

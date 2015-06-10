@@ -121,24 +121,84 @@ module.exports = React.createClass({
     },
 
     render: function() {
+        var modal_style = {
+            display: 'block',
+            opacity: 1,
+            visibility: 'visible',
+            top: 100
+        }
+        var modal_head = {
+            padding: '0.6rem 1rem 0'
+        }
+        var modal_body = {
+            borderBottom: 'none',
+            minHeight: 'none'
+        }
+        var footer_style = {
+            position: 'absolute',
+            bottom: 0,
+            borderTop: '1px #DDDDDD solid',
+            width: '100%',
+        }
+
         return (
             <div>
                 <button onClick={this.openModal}>Open Modal</button>
-                <ReactModal
+                <ReactModal style={modal_style} className={'reveal-modal small open'}
                   isOpen={this.state.modalIsOpen}
                   onRequestClose={this.closeModal}>
+                    <a className={"close-reveal-modal"} aria-label="Close">×</a>
 
-                    <button onClick={this.closeModal}>x</button>
                     <ModalHeader title={'Entity Create'}
-                        onSelect={this.handleSelect}
-                        options={json} />
+                            onSelect={this.handleSelect}
+                            options={json} />
+
+
                     <ModalBody {...this.state}
                         options={json} />
-                    <ModalFooter onBtnPress={this.handlerButtons} />
 
+                    <ModalFooter onBtnPress={this.handlerButtons} />
                 </ReactModal>
             </div>
         );
   }
 });
+  // <div>
+  //               <button onClick={this.openModal}>Open Modal</button>
+  //               <ReactModal style={modal_style} className={'reveal-modal small open'}
+  //                 isOpen={this.state.modalIsOpen}
+  //                 onRequestClose={this.closeModal}>
+  //                   <a className={"close-reveal-modal"} aria-label="Close">×</a>
+
+  //                   <div className="modal-head" style={modal_head}>
+  //                       <h2 className="all-up-case">Create New Project</h2>
+  //                       <div className="row">
+  //                           <div className="small-4 columns">
+  //                               <label for="right-label" className="right inline">Type:</label>
+  //                           </div>
+  //                           <div className="small-8 columns">
+  //                               <select className="mavis-dropdown">
+  //                                   <option value="Movie">Movie</option>
+  //                                   <option value="Commerical">Commerical</option>
+  //                                   <option value="Music Video">Music Video</option>
+  //                               </select>
+  //                           </div>
+  //                       </div>
+  //                   </div>
+  //                   <div className={'modal-content'} style={modal_body}>
+
+  //                       <ModalBody {...this.state}
+  //                           options={json} />
+
+  //                   </div>
+
+  //                   <div className="modal-footer" style={footer_style}>
+  //                       <div className="row">
+  //                           <a href="#" className="button mavis-button radius">Create</a>
+  //                           <a href="#" className="button mavis-button radius">Cancel</a>
+  //                       </div>
+  //                   </div>
+
+  //               </ReactModal>
+  //           </div>
 

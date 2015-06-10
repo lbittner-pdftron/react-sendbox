@@ -14,10 +14,19 @@ var ModalFooter = React.createClass({
 		this.props.onBtnPress('CANCELL')
 	},
 	render: function () {
-		return (<div>
-					<button className='button mavis-button radius' onClick={this.handleSubmit}>Submit</button>
-					<button className='button mavis-button radius' onClick={this.handleCancel}>Cancel</button>
-				</div>)
+		var footer_style = {
+            position: 'absolute',
+            bottom: 0,
+            borderTop: '1px #DDDDDD solid',
+            width: '100%',
+        }
+		return (
+			<div className="modal-footer" style={footer_style}>
+                <div className="row">
+                    <a href="#" className="button mavis-button radius" onClick={this.handleSubmit}>Create</a>
+                    <a href="#" className="button mavis-button radius" onClick={this.handleCancel}>Cancel</a>
+                </div>
+            </div>)
 	}
 })
 module.exports = ModalFooter;

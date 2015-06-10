@@ -16,15 +16,20 @@ var ModalBody = React.createClass({
 	},
 	getCurrentFields: function(o) {
 		return (o.entityTypes.name === this.props.selectedOption)
-	}, 
+	},
 	render: function () {
+		var modal_body = {
+            borderBottom: 'none',
+            minHeight: 0,
+            marginBottom: 81
+        }
 		var options = this.props.options;
 		var selectedFields = options.filter(this.getCurrentFields)[0];
 		var form = (selectedFields)
 					? <Form fields={ selectedFields.fields }> </Form>
 					: null ;
 
-		return (<div className="modal-body">
+		return (<div className={'modal-content'} style={modal_body}>
 					{form}
 					{/*<DebugElement messages={selectedFields} label={'fields'}/>*/}
 				</div>)
