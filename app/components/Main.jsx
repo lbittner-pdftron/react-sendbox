@@ -13,68 +13,12 @@ console.log(json);
 var field = json[0].fields[0];
 
 
-
-var FieldWrapper = React.createClass({
-    getInitialState: function() {
-        return {value: this.props.value, }
-    },
-	render: function() {
-		var name = this.props.field.name;
-		var classes = ['testClass'];
-		return (<div>
-					<label htmlFor={'id_'+name}>
-                        {this.props.field.label}
-                    </label>
-					<InputField field={this.props.field}
-                        update={this.props.update}
-                        className={classes} />
-                        <p>{this.props.sardor}</p>
-				</div>)
-	}
-})
-
-var FormBody = React.createClass({
-    getInitialState: function() {
-        return {values:{},  };
-    },
-    getValues: function() {
-        return this.state.values;
-    },
-    clear: function(){
-        console.log('FormBody:clear')
-        this.setState({ values:{} }, function(x){
-            return this.state.values
-        });
-    },
-    setValues: function(path,text, parsed) {
-        var values = this.state.values;
-        if(text === '') {
-            delete values[path];
-        } else {
-            values[path] = parsed;
-        }
-        this.setState({ values:values, });
-        //console.log(this.state.values);
-    },
-    render: function() {
-        var formFields = this.props.fields.map(function(field){
-            console.log();
-            var value = this.state.values[ field.name ]
-            return (
-                <FieldWrapper field={field} value={value}
-                              key={field.name} update={this.setValues} />
-            );
-        }, this);
-
-        return (<form>{formFields}</form>);
-    }
-})
-
 var ReactModal = require('react-modal');
 var appElement = document.getElementById('react-modal');
 var ModalHeader = require('./modal/ModalHeader')
 var ModalBody   = require('./modal/ModalBody')
 var ModalFooter = require('./modal/ModalFooter')
+var Form = require('./new_form');
 
 ReactModal.setAppElement(appElement);
 ReactModal.injectCSS();
@@ -122,24 +66,12 @@ module.exports = React.createClass({
 
     render: function() {
         var modal_style = {
-            display: 'block',
-            opacity: 1,
             visibility: 'visible',
-            top: 100
         }
-        var modal_head = {
-            padding: '0.6rem 1rem 0'
-        }
-        var modal_body = {
-            borderBottom: 'none',
-            minHeight: 'none'
-        }
-        var footer_style = {
-            position: 'absolute',
-            bottom: 0,
-            borderTop: '1px #DDDDDD solid',
-            width: '100%',
-        }
+        var temp = this.state.selectedOption
+        var _json = json.filter(function(o){
+            return (o.entityTypes.name === temp);
+        })[0];
 
         return (
             <div>
@@ -147,22 +79,23 @@ module.exports = React.createClass({
                 <ReactModal style={modal_style} className={'reveal-modal small open'}
                   isOpen={this.state.modalIsOpen}
                   onRequestClose={this.closeModal}>
-                    <a className={"close-reveal-modal"} aria-label="Close">×</a>
-
-                    <ModalHeader title={'Entity Create'}
-                            onSelect={this.handleSelect}
-                            options={json} />
+                    <form>
+                        <ModalHeader options={json} title={'Entity Create'} onSelect={this.handleSelect}> </ModalHeader>
 
 
-                    <ModalBody {...this.state}
-                        options={json} />
+                        <div className={'modal-content'}>
+                            <Form selectedOption={this.state.selectedOption} options={_json}/>
+                        </div>
 
-                    <ModalFooter onBtnPress={this.handlerButtons} />
+                        <ModalFooter onBtnPress={this.handlerButtons} onClick={this.closeModal} />
+                    </form>
+                    <a className={"close-reveal-modal"} onClick={this.closeModal} aria-label="Close">×</a>
                 </ReactModal>
             </div>
         );
   }
 });
+
   // <div>
   //               <button onClick={this.openModal}>Open Modal</button>
   //               <ReactModal style={modal_style} className={'reveal-modal small open'}

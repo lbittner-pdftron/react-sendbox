@@ -6,32 +6,32 @@
 
 var React = require('react/addons');
 var DebugElement = require('../utils/DebugElement');
-var Form = require('../form');
+// var Form = require('../form');
+var Form = require('../new_form');
 
 var ModalBody = React.createClass({
 	getInitialState: function() {
 		return {
-			fields: {}
+			fields: {},
 		}
 	},
 	getCurrentFields: function(o) {
 		return (o.entityTypes.name === this.props.selectedOption)
 	},
+	componentDidMount: function() {
+        //console.log('componentDidUpdate')
+        window.$mBody = this;
+        window.mBody = React.findDOMNode(this.refs.xModal)
+        // console.log('--- [body] h: ' + mBody.clientHeight)
+    },
 	render: function () {
-		var modal_body = {
-            borderBottom: 'none',
-            minHeight: 0,
-            marginBottom: 81
-        }
+		console.log('[ModalBody] render')
 		var options = this.props.options;
 		var selectedFields = options.filter(this.getCurrentFields)[0];
-		var form = (selectedFields)
-					? <Form fields={ selectedFields.fields }> </Form>
-					: null ;
-
-		return (<div className={'modal-content'} style={modal_body}>
-					{form}
-					{/*<DebugElement messages={selectedFields} label={'fields'}/>*/}
+		debugger;
+		return (<div ref={'xModal'}   className={'modal-content'}>
+					<p className="stat">{this.state.height}</p>
+					{this.props.children}
 				</div>)
 	}
 })

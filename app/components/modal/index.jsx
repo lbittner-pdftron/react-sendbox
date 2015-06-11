@@ -40,7 +40,8 @@ var Modal = React.createClass({
 					<ModalHeader title={'Entity Create'}
 						onSelect={this.handleSelect}
 						options={json} />
-
+					<ModalBody {...this.state}
+						options={json} />
 					<ModalFooter onBtnPress={this.handlerButtons} />
 
 				</div>)
