@@ -6,7 +6,7 @@ var httpProxy = require('http-proxy');
 // as we are now proxying outside localhost
 var proxy = httpProxy.createProxyServer({
   changeOrigin: true
-}); 
+});
 var app = express();
 
 var isProduction = process.env.NODE_ENV === 'production';
@@ -25,11 +25,11 @@ app.all('/db/*', function (req, res) {
 
 if (!isProduction) {
 
-  var bundle = require('./server/bundle.js'); 
+  var bundle = require('./server/bundle.js');
   bundle();
   app.all('/build/*', function (req, res) {
     proxy.web(req, res, {
-        target: 'http://localhost:8080'
+        target: 'http://localhost:8081'
     });
   });
 
