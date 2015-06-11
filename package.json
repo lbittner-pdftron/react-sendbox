@@ -13,7 +13,9 @@
     "node-libs-browser": "~0.5.2",
     "webpack": "~1.9.10",
     "jsx-loader": "~0.13.2",
-    "react-hot-loader": "~1.2.7"
+    "react-hot-loader": "~1.2.7",
+    "classnames": "~1.2.0",
+    "img-loader": "~1.1.0"
   },
   "dependencies": {
     "express": "~4.12.4",
@@ -25,6 +27,6 @@
     "css-loader": "~0.14.4",
     "react": "~0.13.3",
     "json-loader": "~0.5.2",
-    "classnames": "~2.1.2"
+    "sass-loader": "~1.0.2"
   }
 }
