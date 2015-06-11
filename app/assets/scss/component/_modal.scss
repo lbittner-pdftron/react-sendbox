@@ -3,32 +3,94 @@
 	height: 85%;
 	display: flex !important;
 	flex-flow: column nowrap;
-	align-item: stretch;
-	.modal-head{
-		position: relative;
-		padding: 0.6rem 1rem 0;
-		padding: 1rem;
-	}
-	.modal-content{
-		border-top: 1px $gainsboro solid;
-		border-bottom: 1px $gainsboro solid;
-		position: relative;
-		padding: 1rem 2rem 1rem 3rem;
-		overflow-y: auto !important;
-		max-height: 75%;
-		min-height: 75%;
-		input[type="text"]{
-			font-size: 1rem;
-			box-shadow: inset 0 0 8px 0px rgba(0,0,0, 0.3);
-			@include border-size(1px, $dark-grey);
+	align-content: space-between;
+	position: absolute;
+	form{
+		height: 100%;
+		display: flex;
+		flex-flow: column nowrap;
+		.modal-head{
+			display: flex;
+			flex-flow: column nowrap;
+			position: relative;
+			padding: 0.4rem 1rem;
+			height: auto;
+		}
+		.modal-content{
+			border-top: 1px $gainsboro solid;
+			position: relative;
+			display: block;
+			padding: 0.6rem 1.6rem;
+			overflow-y: auto !important;
+			height: 80%;
+			max-height: 85%;
+			width: 100%;
+			input[type="text"]{
+				font-size: $paragraph-font-size;
+				box-shadow: inset 0 0 8px 0px rgba(0,0,0, 0.3);
+				@include border-size(1px, $dark-grey);
+			}
+			ul.tabs li.tab-title a{
+				background: $mid-grey !important;
+			}
+			form a{
+				margin-top: 5px !important;
+			}
+		}
+		.have-tabs{
+			overflow: hidden !important;
+			.create-asset-area{
+				height: 100%;
+				border-top: 1px solid $button-hover-color;
+				.content{
+					height: 100% !important;
+					padding: 1rem;
+					overflow-y: auto !important;
+					overflow-x: hidden;
+					.add-dependency{
+						background: $mid-grey;
+						position: absolute;
+						z-index: 100000;
+						width: 100%;
+						margin: -1rem 0 0 -4.2rem;
+						padding: 2rem 2.9rem 0;
+					}
+					.added-asset-dependency{
+						margin-bottom: 1rem;
+					}
+					.asset-delete{
+						width: 20px;
+						float: right;
+						margin: -40px 0 0 0 !important;
+					}
+					.sub-asset-collection .accordion-navigation{
+						& > a, & > .content.active{
+							background-color: $dark-grey;
+						}
+						.content .row{
+							margin-top: 10px;
+						}
+						.browse-button{
+							margin-top: 0;
+						}
+						.ref-add-button{
+							margin-top: -22px !important;
+						}
+					}
+				}
+			}
+		}
+		.modal-footer{
+			border-top: 1px $gainsboro solid;
+			background: $mid-grey;
+			position: relative;
+			z-index: 100000;
+			padding: 1rem 1rem 0;
+			bottom: 0;
+			display: flex;
+		}
+		.button{
+			margin-right: 10px;
 		}
 	}
-	.modal-footer{
-		position: relative;
-		padding: 1rem 1rem 0.4rem;
-	}
-	.button{
-		margin-right: 10px;
-	}
 }
-

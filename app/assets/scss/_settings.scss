@@ -125,7 +125,7 @@ $button-hover-color: #4986a4;
 $placeholder-color: #6a6e70;
 $link-color: #ff6600;
 // $success-color: #43AC6A;
-// $warning-color: #f08a24;
+$warning-color: #d83f3f;
 // $info-color: #a0d3e8;
 
 // We use these to control various global styles
@@ -221,7 +221,7 @@ $header-font-color: $iron;
 
 // We use these to control header font sizes
 // $h1-font-size: rem-calc(44);
-// $h2-font-size: rem-calc(37);
+ $h2-font-size: rem-calc(35);
 // $h3-font-size: rem-calc(27);
 // $h4-font-size: rem-calc(23);
 // $h5-font-size: rem-calc(18);
@@ -249,8 +249,8 @@ $small-font-size: 60%;
 // We use these to style paragraphs
 // $paragraph-font-family: inherit;
 // $paragraph-font-weight: $font-weight-normal;
-$paragraph-font-size: 1rem;
-$button-font-size: 1.2rem;
+$paragraph-font-size: 0.8rem;
+$button-font-size: 0.9rem;
 // $paragraph-line-height: 1.6;
 $paragraph-margin-bottom: rem-calc(4);
 // $paragraph-aside-font-size: rem-calc(14);
@@ -277,7 +277,7 @@ $paragraph-margin-bottom: rem-calc(4);
 // We use these to style the <hr> element
 // $hr-border-width: 1px;
 // $hr-border-style: solid;
-// $hr-border-color: $gainsboro;
+$hr-border-color: $charcoal;
 $hr-margin: rem-calc(12);
 
 // We use these to style lists
@@ -334,7 +334,7 @@ $hr-margin: rem-calc(12);
 // $include-html-accordion-classes: $include-html-classes;
 
 $accordion-navigation-padding: rem-calc(12);
- $accordion-navigation-bg-color: $mid-grey;
+$accordion-navigation-bg-color: $mid-grey;
 // $accordion-navigation-hover-bg-color: scale-color($accordion-navigation-bg-color, $lightness: -5%);
 // $accordion-navigation-active-bg-color: scale-color($accordion-navigation-bg-color, $lightness: -3%);
 $accordion-navigation-font-color: $iron;
@@ -564,7 +564,7 @@ $f-dropdown-triangle-side-offset: 10px;
 // We use these to control styles for the list elements.
 // $f-dropdown-list-style: none;
 $f-dropdown-font-color: $base;
-// $f-dropdown-font-size: rem-calc(14);
+$f-dropdown-font-size: rem-calc(13);
 // $f-dropdown-list-padding: rem-calc(5, 10);
 // $f-dropdown-line-height: rem-calc(18);
 $f-dropdown-list-hover-bg: $button-hover-color;
@@ -639,8 +639,8 @@ $f-dropdown-list-hover-bg: $button-hover-color;
 
 // We use these to style the labels in different ways
 // $form-label-pointer: pointer;
-$form-label-font-size: rem-calc(16);
-$form-label-font-weight: $font-weight-bold;
+$form-label-font-size: $paragraph-font-size;
+$form-label-font-weight: $font-weight-normal;
 // $form-label-line-height: 1.5;
 $form-label-font-color: $base;
 // $form-label-small-transform: capitalize;
@@ -1418,12 +1418,12 @@ $topbar-link-color: $base;
 // $topbar-link-color-active: $white;
 // $topbar-link-color-active-hover: $white;
 $topbar-link-weight: $font-weight-bold;
-$topbar-link-font-size: rem-calc(14);
+$topbar-link-font-size: rem-calc(16);
 // $topbar-link-hover-lightness: -10%; // Darken by 10%
 // $topbar-link-bg: $topbar-bg;
 $topbar-link-bg-hover: $button-color;
 // $topbar-link-bg-color-hover: $charcoal;
-$topbar-link-bg-active: $button-color;
+$topbar-link-bg-active: $button-hover-color;
 $topbar-link-bg-active-hover: scale-color($button-color, $lightness: -14%);
 $topbar-link-font-family: $font-family-header;
 $topbar-link-text-transform: uppercase;

@@ -16,4 +16,16 @@
 			width: auto !important;
 		}
 	}
+	::-webkit-input-placeholder{
+    @include placeholder;
+	}
+	:-moz-placeholder{
+	    @include placeholder;
+	}
+	::-moz-placeholder{
+	    @include placeholder;
+	}
+	:-ms-input-placeholder{
+	    @include placeholder;
+	}
 }

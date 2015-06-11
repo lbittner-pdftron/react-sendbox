@@ -41,8 +41,19 @@
 		fieldset{
 			border: none;
 		}
+		.login-fail{
+			background: none;
+			padding: 0;
+			text-align: left;
+			border: 0;
+			color: $warning-color;
+			font-family: $body-font-family;
+			font-weight: $font-weight-normal;
+			font-size: 0.8rem;
+		}
 		.forgotPassword{
 			font-size: 0.8rem;
+			font-family: $body-font-family;
 		}
 	  	.versionID{
 			font-size: $small-font-size;

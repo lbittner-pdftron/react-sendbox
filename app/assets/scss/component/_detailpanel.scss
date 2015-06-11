@@ -21,7 +21,7 @@
 	font-weight: $font-weight-bold;
 	position: relative;
 	.tab-title{
-		&.active a{
+		a.active{
 			box-shadow: inset 0 -7px 0 0 $button-hover-color;
 			z-index: 1000;
 			background-color: $dark-grey;
@@ -38,6 +38,9 @@
 		overflow-y: auto;
 		overflow-x: hidden;
 		padding: 1rem 1rem;
+		.mavis-field-cata{
+			margin-top: 1rem;
+		}
 	}
 	.img-div img{
 		min-width: 100%;
@@ -47,7 +50,7 @@
 	}
 }
 .mavis-fields-area{
-	margin: 0.6rem 0;
+	margin: 0.8rem 0;
 }
 .sub-asset-collection{
 	margin: 0;

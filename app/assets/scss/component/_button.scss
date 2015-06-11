@@ -1,12 +1,11 @@
 .mavis-button{
-	box-shadow: 0 1px 0 2px #1a3543;
+	box-shadow: 0 2px 0 1px #1a3543;
 	border-top: 1px solid #4f8ba3;
-	padding: 0.6rem 2rem;
+	padding: 0.6rem 1.6rem ;
 	font-family: $font-family-header;
 	font-weight: $font-weight-bold;
 	text-transform: uppercase;
 	font-size: $button-font-size;
-	margin: 0 0 0.8rem;
 	img{
 		width:15px;
 		margin-top: -5px;
@@ -16,7 +15,7 @@
 	display: inline-block;
 	position: absolute;
 	top: 0;
-	right: 5px;
+	right: 5px; 
 }
 .dropdown-button{
 	@include border-size(1px, $dark-grey);
@@ -25,9 +24,9 @@
 	background-position: right 98% !important;
 	background-color: $dark-grey !important;
 	font-weight: $font-weight-normal;
-	font-size: 1rem;
+	font-size: $button-font-size;
 	color: $base;
-	padding: 0.4rem 0.6rem;
+	padding: 0.45rem 0.6rem;
 	width: 100%;
 	&:hover, &:active{
 		color: $white;
@@ -37,4 +36,17 @@
 		margin-top: 5px;
 		float: right;
 	}
+}
+.modal-add-button{
+	float: right;
+	margin: 5px -28px 0 0 !important;
+}
+.ref-add-button{
+	float: right;
+	margin: 6px 16px 0 0 !important;
+}
+.asset-delete-button{
+	float: right;
+	margin: -40px 0 0 0 !important;
+	padding: 0.3rem 0.5rem;
 }
