@@ -1,9 +1,12 @@
-require('./assets/scss/app.scss');
+// require('./assets/scss/app.scss');
 var React = require('react')
 
-var Main = require('./components/Main')
+import Root from './redux/containers/Root';
+// var Main = require('./components/Main')
 
-React.render(<Main/>, document.getElementById('main'));
+React.render(<Root />, document.getElementById('main'));
 
 console.log('Application is loaded!');
 console.log('hello as')
+
+

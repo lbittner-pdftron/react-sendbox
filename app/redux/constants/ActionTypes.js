@@ -1,0 +1,20 @@
+export const MARK_ONE = 'MARK_ONE';
+export const MARK_ALL = 'MARK_ALL';
+export const SHOW_CHILDREN = 'SHOW_CHILDREN';
+
+
+export const RESET_ERROR_MESSAGE = 'RESET_ERROR_MESSAGE';
+
+export const ENTITY_ASSET_REQUEST = 'ENTITY_ASSET_REQUEST';
+export const ENTITY_ASSET_SUCCESS = 'ENTITY_ASSET_SUCCESS';
+export const ENTITY_ASSET_FAILURE = 'ENTITY_ASSET_FAILURE';
+
+export const ENTITY_GROUPS_REQUEST = 'ENTITY_GROUPS_REQUEST';
+export const ENTITY_GROUPS_SUCCESS = 'ENTITY_GROUPS_SUCCESS';
+export const ENTITY_GROUPS_FAILURE = 'ENTITY_GROUPS_FAILURE';
+
+
+
+export const TASK_ASSETS = 'assets';
+export const TASK_GROUPS = 'groups';
+export const TASK_PROJECTS = 'projects';

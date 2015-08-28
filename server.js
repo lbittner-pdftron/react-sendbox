@@ -10,7 +10,7 @@ var proxy = httpProxy.createProxyServer({
 var app = express();
 
 var isProduction = process.env.NODE_ENV === 'production';
-var port = isProduction ? 8080 : 3001;
+var port = isProduction ? 8080 : 4000;
 var publicPath = path.resolve(__dirname, 'public');
 
 app.use(express.static(publicPath));
@@ -29,7 +29,7 @@ if (!isProduction) {
   bundle();
   app.all('/build/*', function (req, res) {
     proxy.web(req, res, {
-        target: 'http://localhost:8081'
+        target: 'http://localhost:8088'
     });
   });
 
