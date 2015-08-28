@@ -15,7 +15,7 @@ var config = {
 	// 'webpack/hot/dev-server',
 	'webpack/hot/only-dev-server',
 	// The script refreshing the browser on none hot updates
-	'webpack-dev-server/client?http://localhost:8081',
+	'webpack-dev-server/client?http://localhost:8088',
 
 	// Our application
 	mainPath],
@@ -42,7 +42,7 @@ var config = {
 	// ES6/7 syntax and JSX transpiling out of the box
 	{
 	  test: /\.js$/,
-	  loader: 'babel',
+	  loaders: ['react-hot', 'babel'],
 	  exclude: [nodeModulesPath]
 	},
 
