@@ -1,25 +1,37 @@
-import {ENTITY_ASSET_REQUEST, ENTITY_ASSET_SUCCESS,	ENTITY_ASSET_FAILURE}
+import {ENTITY_ASSETS_REQUEST, ENTITY_ASSETS_SUCCESS,
+		ENTITY_GROUPS_REQUEST,
+		ENTITY_GROUPS_SUCCESS,
+		ENTITY_GROUPS_FAILURE,
+		ENTITY_ASSETS_FAILURE,TASK_ASSETS, TASK_GROUPS, TASK_PROJECTS}
 						from '../constants/ActionTypes';
 import fetch 			from 'isomorphic-fetch';
 
 
 export function fetchAssets(project, category) {
 	return function(dispatch, getState) {
-		// return dispatch(fetchPosts(project));
 
+		var _ref5 = getState().pagination[TASK_ASSETS] || {};
+		var _ref5$nextPageUrl = _ref5.nextPageUrl;
+		var nextPageUrl = _ref5$nextPageUrl === undefined ? 'Entities' : _ref5$nextPageUrl;
 		// debugger;
 
-		var filter = { filter: {
-				limit: 1,
-				skip: 0,
-				where: { category: category, project: project }
-			}}
+
+		var filter = {
+						filter: {
+							limit: 1,
+							skip: 0,
+							where: {
+								category: category,
+								project: project
+							}
+						}
+					}
 
 		var fetch = {};
 		fetch['category'] = category;
 		fetch['CALL_API'] = {
-			types: [ENTITY_ASSET_REQUEST, ENTITY_ASSET_SUCCESS, ENTITY_ASSET_FAILURE],
-			endpoint: 'Entities',
+			types: [ENTITY_ASSETS_REQUEST, ENTITY_ASSETS_SUCCESS, ENTITY_ASSETS_FAILURE],
+			endpoint: nextPageUrl,
 			filter:  filter,
 			category: category,
 			project: project
@@ -29,6 +41,41 @@ export function fetchAssets(project, category) {
 	}
 }
 
+
+
+export function fetchGroups(project, category) {
+	return function(dispatch, getState) {
+
+		var _ref5 = getState().pagination[TASK_GROUPS] || {};
+		var _ref5$nextPageUrl = _ref5.nextPageUrl;
+		var nextPageUrl = _ref5$nextPageUrl === undefined ? 'Entities' : _ref5$nextPageUrl;
+		// debugger;
+
+
+		var filter = {
+						filter: {
+							limit: 1,
+							skip: 0,
+							where: {
+								category: category,
+								project: project
+							}
+						}
+					}
+
+		var fetch = {};
+		fetch['category'] = category;
+		fetch['CALL_API'] = {
+			types: [ENTITY_GROUPS_REQUEST, ENTITY_GROUPS_SUCCESS, ENTITY_GROUPS_FAILURE],
+			endpoint: nextPageUrl,
+			filter:  filter,
+			category: category,
+			project: project
+		}
+
+		return dispatch(fetch);
+	}
+}
 
 export const REQUEST_POSTS = 'REQUEST_POSTS';
 function requestPosts(project) {

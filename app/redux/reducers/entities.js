@@ -1,6 +1,21 @@
 import { MARK_ONE, MARK_ALL, SHOW_CHILDREN, ENTITY_SUCCESS } from '../constants/ActionTypes';
+
+import {ENTITY_ASSETS_REQUEST,
+		ENTITY_ASSETS_SUCCESS,
+		ENTITY_ASSETS_FAILURE,
+
+		ENTITY_GROUPS_REQUEST,
+		ENTITY_GROUPS_SUCCESS,
+		ENTITY_GROUPS_FAILURE,
+		TASK_ASSETS,
+		TASK_GROUPS,
+		TASK_PROJECTS}
+						from '../constants/ActionTypes';
+
 import union from 'lodash/array/union';
+import merge from 'lodash/object/merge';
 import indexBy from 'lodash/collection/indexBy';
+import { combineReducers } from 'redux';
 
 window.indexBy = indexBy
 const ASSETS = 'assets'
@@ -113,19 +128,22 @@ const initialStateASSET = [
 	},
 ];
 
-export function groups(state = { entities:{}, subAssets:{} }, action) {
+export function groups(state = { entities:[], subAssets:{} }, action) {
 	var stub1 = state
-	debugger
-
-
 	switch (action.type) {
-		case 'ADD_GROUP':
-			var nSubAssets = Object.assign([], state.subAssets);
-			var nEntities =  union(...state.entities, [{id:8, name:'foo'}])
-			return {
-				entities: nEntities,
-				subAssets: nSubAssets
+		case ENTITY_GROUPS_SUCCESS:
+			debugger
+			if(action.response && action.response.data) {
+				var nSubAssets = Object.assign({}, state.subAssets);
+				var nEntities =  union(state.entities, action.response.data);
+				var nextPageUrl = action.response.nextPageUrl;
+				return {
+					entities: nEntities,
+					subAssets: nSubAssets,
+					nextPageUrl
+				}
 			}
+			return state
 		default:
 			return state;
 	}
@@ -133,26 +151,17 @@ export function groups(state = { entities:{}, subAssets:{} }, action) {
 
 export function assets(state = { entities:[], subAssets:{} }, action) {
 	var stub2 = state
-	debugger
-
-
 	switch (action.type) {
-		case 'ADD_ASSET':
-			var nSubAssets = Object.assign({}, state.subAssets);
-
-			var nEntities =  union(...state.entities, [{id:7, name:'bar'}])
-			return {
-				entities: nEntities,
-				subAssets: nSubAssets
-			}
-		case 'ENTITY_ASSET_SUCCESS':
+		case ENTITY_ASSETS_SUCCESS:
 			debugger
-			if(action.response) {
+			if(action.response && action.response.data) {
 				var nSubAssets = Object.assign({}, state.subAssets);
-				var nEntities =  union(...state.entities, action.response)
+				var nEntities =  union(state.entities, action.response.data);
+				var nextPageUrl = action.response.nextPageUrl;
 				return {
 					entities: nEntities,
-					subAssets: nSubAssets
+					subAssets: nSubAssets,
+					nextPageUrl
 				}
 			}
 			return state
@@ -162,14 +171,39 @@ export function assets(state = { entities:[], subAssets:{} }, action) {
 }
 
 
-
+export function pagination(state = {
+		[TASK_ASSETS] : { nextPageUrl : undefined },
+		[TASK_GROUPS] : { nextPageUrl : undefined } }, action) {
+	// debugger;
+	switch (action.type) {
+		case ENTITY_ASSETS_SUCCESS:
+			// debugger
+			if(action.response && action.response.nextPageUrl) {
+				var assets = { nextPageUrl: action.response.nextPageUrl };
+				return merge({}, state, {
+			        assets: assets,
+			        groups: state.groups
+			      });
+			}
+			return state
+		case ENTITY_GROUPS_SUCCESS:
+			// debugger
+			if(action.response && action.response.nextPageUrl) {
+				var groups = { nextPageUrl: action.response.nextPageUrl }
+				return merge({}, state, {
+					assets: state.assets,
+			        groups: groups
+			      });
+			}
+			return state
+		default:
+			return state;
+	}
+}
 
 
 export function menu(state = -1, action) {
 	var stub3 = state
-	debugger
-
-
 	switch (action.type) {
 		case 'SHOW_MENU':
 			if(state === action.id) {
@@ -185,3 +219,17 @@ export function menu(state = -1, action) {
 			return state;
 	}
 }
+
+function tasks(state = {}, action) {
+	return state
+}
+
+
+
+export const entities = combineReducers({
+  assets: tasks,
+  groups: tasks
+});
+
+
+

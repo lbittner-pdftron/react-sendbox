@@ -18,10 +18,32 @@ window.normalize = normalize;
 // 	return result;
 // };
 
-function callApi(endpoint, queryString) {
-	if(queryString) {
-		endpoint += '?' + queryString
+
+const API_ROOT = 'http://localhost:3000/api/';
+
+function getNextPageUrl(response) {
+	// debugger;
+	const link = response.headers.get('link');
+	if (!link) {
+		return null;
 	}
+
+	const nextLink = link;
+	if (!nextLink) {
+		return null;
+	}
+
+	return nextLink;
+}
+function callApi(endpoint, queryString) {
+	if (endpoint.indexOf(API_ROOT) === -1 && queryString) {
+		endpoint = API_ROOT + endpoint + '?' + queryString
+	}
+
+	// if(queryString) {
+	// 	endpoint = API_ROOT + endpoint + '?' + queryString
+	// 	// endpoint = endpoint + '?' + queryString
+	// }
 	return fetch(endpoint , {headers: {'Authorization': 'sardor'}})
 				.then(response => response.json()
 					.then(json => ({ json, response})))
@@ -29,17 +51,23 @@ function callApi(endpoint, queryString) {
 					if (!response.ok) {
 						return Promise.reject(json);
 					}
-					return json;
+					const nextPageUrl = getNextPageUrl(response) || undefined;
+
+					// return json;
+					return Object.assign({}, { data: json }, { nextPageUrl } );
 				});
 }
 
+
+
 const logger = store => next => action => {
-	debugger
+	// debugger
 	const callAPI = action['CALL_API'];
  	if (typeof callAPI === 'undefined') {
 
  		return next(action);
  	}
+ 	let { endpoint } = callAPI;
  	const { types, category, filter } = callAPI;
  	var queryString = ' '
 
@@ -56,8 +84,8 @@ const logger = store => next => action => {
 
  	next(actionWith({ type: requestType }));
 
- 	debugger
- 	var endpoint = 'http://localhost:3000/api/Entities';
+ 	// debugger
+
 	return callApi(endpoint, queryString ).then(
  		response => next(actionWith({ response, type: successType })),
  		error => next(actionWith({  type: failureType, error: error.message || 'Something bad happened' }))

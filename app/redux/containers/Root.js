@@ -19,9 +19,9 @@ export default class Root extends Component {
 	      <Provider store={store}>
 	        {() => <PanelOne /> }
 	      </Provider>
-	      {/*<Provider store={store}>
+	      <Provider store={store}>
 	        {() => <PanelTwo /> }
-	      </Provider>*/}
+	      </Provider>
 	    </div>
     );
   }

@@ -1,37 +1,49 @@
-import React, { Component } 					from 'react';
-import { bindActionCreators, combineReducers } 	from 'redux';
-import { connect } 								from 'react-redux';
+import React, { Component } from 'react';
+import { bindActionCreators,
+		combineReducers } 	from 'redux';
+import { connect } 			from 'react-redux';
 
-import { TASK_GROUPS } 			from '../constants/ActionTypes';
-import { fetchAssets } 			from '../actions/entityActions';
+// local
+import { TASK_GROUPS } 		from '../constants/ActionTypes';
+import { fetchGroups } 		from '../actions/entityActions';
 
-class PanelOne extends Component {
-	componentWillMount() {
-  	}
 
-  	componentDidMount() {
-  		console.log('PanelOne.mount', this.props)
-  	}
+
+function loadData(props) {
+
+	props.fetchGroups('fantastic', props.category);
+}
+
+
+class PanelTwo extends Component {
+	fetch() {
+		console.log('fetch', this.props)
+		loadData(this.props);
+	}
 
 	render() {
 		var stub5 = this.props
-		debugger
+		// debugger
 
 		const { category, entities, subAssets } = this.props;
-
 
 		console.log(entities, subAssets)
 		return (
 			<div className='project-library library-panel'>
 				<p>Type: {category}</p>
-				{entities}
+				<ul>
+					{
+						entities.map(function(entity) {
+							console.log(entity)
+							return <li key={entity.id}>{entity.name} - type: {entity.category}</li>
+						})
+					}
+				</ul>
 				{subAssets}
-				<button onClick={::this.handleLoadMoreClick}>Load More</button>
+				<button onClick={::this.fetch}>Load More</button>
 			</div>
 		);
-
 	}
-
 
 	handleLoadMoreClick() {
   		console.log('handleLoadMoreClick')
@@ -39,14 +51,10 @@ class PanelOne extends Component {
   	}
 }
 
-// <MainSection entities={entities}
-				// 	menu={menu}
-				// 	category={category}
-				// 	actions={this.props} />
 
 function select (state) {
 	var stub4 = TASK_GROUPS
-	debugger
+
 	const { groups: { entities, subAssets } } = state
 
 	var result  = {
@@ -55,7 +63,8 @@ function select (state) {
 		subAssets: subAssets
 	};
 
+	// debugger
 	return result;
 }
 
-export default connect(select, {})(PanelOne);
+export default connect(select, {fetchGroups})(PanelTwo);
