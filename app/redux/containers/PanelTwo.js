@@ -20,11 +20,14 @@ class PanelTwo extends Component {
 		console.log('fetch', this.props)
 		loadData(this.props);
 	}
-
+	componentDidUpdate(prevProps, prevState) {
+		console.warn('################ PanelTwo update')
+	}
+	componentDidMount() {
+		console.warn('################ PanelTwo mount')
+	}
 	render() {
 		var stub5 = this.props
-		// debugger
-
 		const { category, entities, subAssets } = this.props;
 
 		console.log(entities, subAssets)
@@ -54,7 +57,6 @@ class PanelTwo extends Component {
 
 function select (state) {
 	var stub4 = TASK_GROUPS
-
 	const { groups: { entities, subAssets } } = state
 
 	var result  = {
@@ -63,7 +65,6 @@ function select (state) {
 		subAssets: subAssets
 	};
 
-	// debugger
 	return result;
 }
 

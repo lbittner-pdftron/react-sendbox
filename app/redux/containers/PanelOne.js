@@ -5,7 +5,7 @@ import { connect } 			from 'react-redux';
 
 // local
 import { TASK_ASSETS } 		from '../constants/ActionTypes';
-import { fetchAssets } 		from '../actions/entityActions';
+import { fetchAssets, fetchSubTasks } 		from '../actions/entityActions';
 
 
 
@@ -20,10 +20,18 @@ class PanelOne extends Component {
 		console.log('fetch', this.props)
 		loadData(this.props);
 	}
+	componentDidUpdate(prevProps, prevState) {
+		console.warn('################ PanelOne update')
+	}
+	componentDidMount() {
+		console.warn('################ PanelOne mount')
+	}
 
+	fetchChildren(id) {
+		this.props.fetchSubTasks(id)
+	}
 	render() {
 		var stub5 = this.props
-		// debugger
 
 		const { category, entities, subAssets } = this.props;
 
@@ -35,8 +43,10 @@ class PanelOne extends Component {
 					{
 						entities.map(function(entity) {
 							console.log(entity)
-							return <li key={entity.id}>{entity.name} - type: {entity.category}</li>
-						})
+							return <li key={entity.id}>{entity.name} - type: {entity.category}
+									<button onClick={() => this.fetchChildren(entity.id)}>Show children</button>
+								</li>
+						}, this)
 					}
 				</ul>
 				{subAssets}
@@ -54,7 +64,6 @@ class PanelOne extends Component {
 
 function select (state) {
 	var stub4 = TASK_ASSETS
-
 	const { assets: { entities, subAssets } } = state
 
 	var result  = {
@@ -63,8 +72,7 @@ function select (state) {
 		subAssets: subAssets
 	};
 
-	// debugger
 	return result;
 }
 
-export default connect(select, {fetchAssets})(PanelOne);
+export default connect(select, { fetchAssets, fetchSubTasks })(PanelOne);
