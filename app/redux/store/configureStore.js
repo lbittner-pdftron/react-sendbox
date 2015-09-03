@@ -28,6 +28,9 @@ function callApi(endpoint, queryString) {
 	if (endpoint.indexOf(API_ROOT) === -1 && queryString) {
 		endpoint = API_ROOT + endpoint + '?' + queryString
 	}
+	else if (endpoint.indexOf(API_ROOT) === -1 && !queryString) {
+		endpoint = API_ROOT + endpoint
+	}
 
 	return fetch(endpoint , {headers: {'Authorization': 'sardor'}})
 				.then(response => response.json()
@@ -63,6 +66,7 @@ const api = store => next => action => {
  	function actionWith(data) {
  		const finalAction = Object.assign({}, action, data);
  		delete finalAction['CALL_API'];
+ 		console.log('finalAction',action,finalAction)
  		return finalAction;
  	}
 

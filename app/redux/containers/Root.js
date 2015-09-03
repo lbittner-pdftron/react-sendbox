@@ -17,10 +17,10 @@ export default class Root extends Component {
     return (
 		<div>
 	      <Provider store={store}>
-	        {() => <PanelOne /> }
+	        {() => <PanelOne projectId={1}/> }
 	      </Provider>
 	      <Provider store={store}>
-	        {() => <PanelTwo /> }
+	        {() => <PanelTwo projectId={1}/> }
 	      </Provider>
 	    </div>
     );

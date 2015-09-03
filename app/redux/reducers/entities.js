@@ -1,8 +1,12 @@
 import { MARK_ONE, MARK_ALL, SHOW_CHILDREN, ENTITY_SUCCESS } from '../constants/ActionTypes';
 
-import {ENTITY_ASSETS_REQUEST, ENTITY_SUBTASK_REQUEST,
+import {ENTITY_ASSETS_REQUEST,
 		ENTITY_ASSETS_SUCCESS,
 		ENTITY_ASSETS_FAILURE,
+
+		ENTITY_SUBTASK_REQUEST,
+		ENTITY_SUBTASK_SUCCESS,
+		ENTITY_SUBTASK_FAILURE,
 
 		ENTITY_GROUPS_REQUEST,
 		ENTITY_GROUPS_SUCCESS,
@@ -60,12 +64,34 @@ export function assets(state = { entities:[], subAssets:{} }, action) {
 			return state;
 	}
 }
-
+function tasks(state = {isFetching:false, didInvalidate:false, items:[]}, action) {
+	switch (action.type) {
+		case ENTITY_SUBTASK_FAILURE:
+			return Object.assign({}, state, {
+				didInvalidate: true
+			});
+		case ENTITY_SUBTASK_REQUEST:
+			return Object.assign({}, state, {
+				isFetching: true,
+				didInvalidate: false
+			});
+		case ENTITY_SUBTASK_SUCCESS:
+			return Object.assign({}, state, {
+				isFetching: false,
+				didInvalidate: false,
+				items: action.response.data,
+				// lastUpdated: action.receivedAt
+			});
+		default:
+			return state;
+	}
+}
 export function subAssets(state = {}, action) {
 	switch (action.type) {
 		case ENTITY_SUBTASK_REQUEST:
-			debugger;
-			return state
+		case ENTITY_SUBTASK_SUCCESS:
+			// debugger;
+			return Object.assign({}, state, {[action.entityId]: tasks(state[action.entityId], action)});
 		default:
 			return state;
 	}

@@ -11,7 +11,7 @@ import { fetchAssets, fetchSubTasks } 		from '../actions/entityActions';
 
 function loadData(props) {
 
-	props.fetchAssets('fantastic', props.category);
+	props.actions.fetchAssets('fantastic', props.category);
 }
 
 
@@ -28,7 +28,7 @@ class PanelOne extends Component {
 	}
 
 	fetchChildren(id) {
-		this.props.fetchSubTasks(id)
+		this.props.actions.fetchSubTasks(id)
 	}
 	render() {
 		var stub5 = this.props
@@ -74,5 +74,10 @@ function select (state) {
 
 	return result;
 }
+function mapDispatchToProps(dispatch) {
+  return { actions: bindActionCreators({ fetchAssets, fetchSubTasks }, dispatch) };
+}
 
-export default connect(select, { fetchAssets, fetchSubTasks })(PanelOne);
+
+
+export default connect(select, mapDispatchToProps)(PanelOne);

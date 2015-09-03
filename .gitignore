@@ -1,3 +1,5 @@
 node_modules
 bower_com*
 public/images
+
+npm-debug.log

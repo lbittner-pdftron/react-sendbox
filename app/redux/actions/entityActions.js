@@ -1,11 +1,19 @@
-import {ENTITY_ASSETS_REQUEST, ENTITY_ASSETS_SUCCESS, ENTITY_SUBTASK_REQUEST,
+import { ENTITY_ASSETS_REQUEST,
+		ENTITY_ASSETS_SUCCESS,
+
+		ENTITY_SUBTASK_REQUEST,
+		ENTITY_SUBTASK_SUCCESS,
+		ENTITY_SUBTASK_FAILURE,
+
 		ENTITY_GROUPS_REQUEST,
 		ENTITY_GROUPS_SUCCESS,
 		ENTITY_GROUPS_FAILURE,
-		ENTITY_ASSETS_FAILURE,TASK_ASSETS, TASK_GROUPS, TASK_PROJECTS}
-						from '../constants/ActionTypes';
+		ENTITY_ASSETS_FAILURE,
+		TASK_ASSETS,
+		TASK_GROUPS,
+		TASK_PROJECTS } from '../constants/ActionTypes';
 import 'isomorphic-fetch';
-
+const projectID = 1;
 
 export function fetchAssets(project, category) {
 	return function(dispatch, getState) {
@@ -24,25 +32,42 @@ export function fetchAssets(project, category) {
 						}
 					}
 
-		var fetch = {};
-		fetch['category'] = category;
-		fetch['CALL_API'] = {
+		var fetchAction = {};
+		fetchAction['category'] = category;
+		fetchAction['project'] = project;
+		fetchAction['CALL_API'] = {
 			types: [ENTITY_ASSETS_REQUEST, ENTITY_ASSETS_SUCCESS, ENTITY_ASSETS_FAILURE],
 			endpoint: nextPageUrl,
 			filter:  filter,
-			category: category,
-			project: project
+			category: category
 		}
 
-		return dispatch(fetch);
+		return dispatch(fetchAction);
 	}
 }
 
 
 export function fetchSubTasks(entityId) {
 	return function(dispatch, getState) {
-		debugger
-		return dispatch({type: ENTITY_SUBTASK_REQUEST, id: entityId })
+		var url =  'Entities/' + entityId + '/assets';
+
+		var filter = {
+						filter: {
+							// where: {
+							// 	// category: category,
+							// 	// project: project
+							// }
+						}
+					}
+		// debugger
+		var fetchAction = {};
+		fetchAction['entityId'] = entityId;
+		fetchAction['CALL_API'] = {
+			types: [ENTITY_SUBTASK_REQUEST, ENTITY_SUBTASK_SUCCESS, ENTITY_SUBTASK_FAILURE],
+			endpoint: url,
+			filter:  filter
+		}
+		return dispatch(fetchAction)
 	}
 }
 
@@ -64,9 +89,9 @@ export function fetchGroups(project, category) {
 						}
 					}
 
-		var fetch = {};
-		fetch['category'] = category;
-		fetch['CALL_API'] = {
+		var fetchAction = {};
+		fetchAction['category'] = category;
+		fetchAction['CALL_API'] = {
 			types: [ENTITY_GROUPS_REQUEST, ENTITY_GROUPS_SUCCESS, ENTITY_GROUPS_FAILURE],
 			endpoint: nextPageUrl,
 			filter:  filter,
@@ -74,6 +99,6 @@ export function fetchGroups(project, category) {
 			project: project
 		}
 
-		return dispatch(fetch);
+		return dispatch(fetchAction);
 	}
 }
