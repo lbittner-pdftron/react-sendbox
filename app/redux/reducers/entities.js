@@ -25,7 +25,7 @@ window.indexBy = indexBy
 
 
 
-export function groups(state = { entities:[], subAssets:{} }, action) {
+export function groups(state = { entities:[], expended: {}, subAssets:{} }, action) {
 	var stub1 = state
 	switch (action.type) {
 		case ENTITY_GROUPS_SUCCESS:
@@ -33,19 +33,29 @@ export function groups(state = { entities:[], subAssets:{} }, action) {
 				var nSubAssets = Object.assign({}, state.subAssets);
 				var nEntities =  union(state.entities, action.response.data);
 				var nextPageUrl = action.response.nextPageUrl;
-				return {
+				return  Object.assign({}, state, {
 					entities: nEntities,
 					subAssets: nSubAssets,
-					nextPageUrl
-				}
+					nextPageUrl,
+					expended: state.expended
+				});
 			}
-			return state
+			return state;
+		case 'OPEN':
+			console.log('OPEN');
+			var expended = state.expended;
+			expended[action.entityId] = true;
+			return Object.assign({}, state, {
+				entities: state.entities,
+				subAssets: state.subAssets,
+				expended: expended
+			});
 		default:
 			return state;
 	}
 }
 
-export function assets(state = { entities:[], subAssets:{} }, action) {
+export function assets(state = { entities:[], expended: {}, subAssets:{} }, action) {
 	var stub2 = state
 	switch (action.type) {
 		case ENTITY_ASSETS_SUCCESS:
@@ -53,13 +63,22 @@ export function assets(state = { entities:[], subAssets:{} }, action) {
 				var nSubAssets = Object.assign({}, state.subAssets);
 				var nEntities =  union(state.entities, action.response.data);
 				var nextPageUrl = action.response.nextPageUrl;
-				return {
+				return  Object.assign({}, state, {
 					entities: nEntities,
 					subAssets: nSubAssets,
-					nextPageUrl
-				}
+					nextPageUrl,
+					expended: state.expended
+				});
 			}
-			return state
+			return state;
+		case 'OPEN':
+			console.log('OPEN');
+			var expended = Object.assign({}, state.expended, {[action.entityId]: true});
+			return Object.assign({}, state, {
+				entities: state.entities,
+				subAssets: state.subAssets,
+				expended: expended
+			});
 		default:
 			return state;
 	}

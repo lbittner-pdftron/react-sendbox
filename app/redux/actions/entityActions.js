@@ -49,6 +49,16 @@ export function fetchAssets(project, category) {
 
 export function fetchSubTasks(entityId) {
 	return function(dispatch, getState) {
+		return dispatch({ type: 'OPEN', entityId: entityId })
+		var tasks = getState().subAssets[entityId];
+		if(tasks) {
+			return dispatch({
+				type: 'EXIST',
+				entityId: entityId,
+				tasks: tasks
+			});
+
+		}
 		var url =  'Entities/' + entityId + '/assets';
 
 		var filter = {

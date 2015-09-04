@@ -33,9 +33,9 @@ class PanelOne extends Component {
 	render() {
 		var stub5 = this.props
 
-		const { category, entities, subAssets } = this.props;
+		const { category, entities, subAssets, expended } = this.props;
 
-		console.log(entities, subAssets)
+		console.log(entities, expended)
 		return (
 			<div className='project-library library-panel'>
 				<p>Type: {category}</p>
@@ -43,8 +43,11 @@ class PanelOne extends Component {
 					{
 						entities.map(function(entity) {
 							console.log(entity)
+							var expend = expended[entity.id] || false;
+							var tt = (expend) ? <p>TRUE</p>:null;
 							return <li key={entity.id}>{entity.name} - type: {entity.category}
 									<button onClick={() => this.fetchChildren(entity.id)}>Show children</button>
+									{tt}
 								</li>
 						}, this)
 					}
@@ -64,12 +67,13 @@ class PanelOne extends Component {
 
 function select (state) {
 	var stub4 = TASK_ASSETS
-	const { assets: { entities, subAssets } } = state
+	const { assets: { entities, subAssets }, assets: { expended } } = state
 
 	var result  = {
 		category: TASK_ASSETS,
 		entities: entities,
-		subAssets: subAssets
+		subAssets: subAssets,
+		expended: expended
 	};
 
 	return result;
