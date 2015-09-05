@@ -13,7 +13,8 @@ import {ENTITY_ASSETS_REQUEST,
 		ENTITY_GROUPS_FAILURE,
 		TASK_ASSETS,
 		TASK_GROUPS,
-		TASK_PROJECTS}
+		TASK_PROJECTS,
+		SHOW_MENU}
 						from '../constants/ActionTypes';
 
 import union from 'lodash/array/union';
@@ -41,15 +42,6 @@ export function groups(state = { entities:[], expended: {}, subAssets:{} }, acti
 				});
 			}
 			return state;
-		case 'OPEN':
-			console.log('OPEN');
-			var expended = state.expended;
-			expended[action.entityId] = true;
-			return Object.assign({}, state, {
-				entities: state.entities,
-				subAssets: state.subAssets,
-				expended: expended
-			});
 		default:
 			return state;
 	}
@@ -71,14 +63,6 @@ export function assets(state = { entities:[], expended: {}, subAssets:{} }, acti
 				});
 			}
 			return state;
-		case 'OPEN':
-			console.log('OPEN');
-			var expended = Object.assign({}, state.expended, {[action.entityId]: true});
-			return Object.assign({}, state, {
-				entities: state.entities,
-				subAssets: state.subAssets,
-				expended: expended
-			});
 		default:
 			return state;
 	}
@@ -147,7 +131,7 @@ export function pagination(state = {
 export function menu(state = -1, action) {
 	var stub3 = state
 	switch (action.type) {
-		case 'SHOW_MENU':
+		case SHOW_MENU:
 			if(state === action.id) {
 				state = -1;
 			}

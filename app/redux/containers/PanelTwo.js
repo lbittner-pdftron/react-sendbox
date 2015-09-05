@@ -21,10 +21,10 @@ class PanelTwo extends Component {
 		loadData(this.props);
 	}
 	componentDidUpdate(prevProps, prevState) {
-		console.warn('################ PanelTwo update')
+		// console.warn('################ PanelTwo update')
 	}
 	componentDidMount() {
-		console.warn('################ PanelTwo mount')
+		// console.warn('################ PanelTwo mount')
 	}
 	render() {
 		var stub5 = this.props

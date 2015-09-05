@@ -1,5 +1,6 @@
 import PanelOne 		from './PanelOne';
 import PanelTwo 		from './PanelTwo';
+import Library 			from './Library';
 import configureStore 	from '../store/configureStore';
 
 
@@ -17,10 +18,7 @@ export default class Root extends Component {
     return (
 		<div>
 	      <Provider store={store}>
-	        {() => <PanelOne projectId={1}/> }
-	      </Provider>
-	      <Provider store={store}>
-	        {() => <PanelTwo projectId={1}/> }
+	        {() => <Library projectId={1}/> }
 	      </Provider>
 	    </div>
     );

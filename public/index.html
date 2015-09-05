@@ -2,11 +2,152 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700|Open+Sans+Condensed:300,700,300italic" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <style type="text/css">
+body {
+    background: #2c2f30;
+    color: #AAAAAA;
+    cursor: auto;
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
   	.ReactModal__Overlay {
 	    background-color: rgba(0, 0, 0, 0.45);
 	}
+   .asset-panel {
+       padding: 0.4rem 0 0.4rem;
+       height: 100vh;
+       color: aliceblue;
+   }
+
+.asset-panel .asset-list-header {
+    padding: 0 1rem;
+}
+.asset-item-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.asset-item-list li:first-child .asset-item-container {
+    border-top: 0;
+}
+.asset-item-list .asset-item-container {
+    box-shadow: inset 0 1px 0 0 #3e4041;
+    border-top: 1px solid #000000;
+    padding: 0.2rem 0 0;
+    height: 50px;
+    position: relative;
+    min-width: 220px;
+    cursor: pointer;
+    box-sizing: border-box;
+    background-color: #2c2f30;
+    clear: both;
+}
+
+.asset-item-list .asset-item-container .asset-text-area {
+    position: absolute;
+    left: 90px;
+}
+.left {
+    float: left !important;
+}
+.asset-item-list .asset-item-container .item-util-control {
+    background-color: #1d2022;
+    height: 100%;
+    margin: -0.2rem 0 0;
+    position: absolute;
+    right: 0;
+    list-style: none;
+}
+.asset-item-list .asset-item-container img {
+    width: 50px;
+    height: auto;
+    margin-right: 0.4rem;
+    -webkit-transform: translateY(25%);
+    -ms-transform: translateY(25%);
+    transform: translateY(25%);
+}
+.left {
+    float: left !important;
+}
+.asset-item-list .asset-item-container .asset-text-area p {
+    width: 110px;
+    line-height: 1;
+    font-size: 0.7rem;
+    margin-left: 10px;
+}
+.ellipsis-text {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+p {
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 400;
+    line-height: 1.6;
+    margin-bottom: 0.25rem;
+    text-rendering: optimizeLegibility;
+}
+.mavis-status {
+    top: 3px;
+    width: 8px;
+    height: 8px;
+    background-color: #FFFFFF;
+    position: relative;
+    display: block;
+    float: left;
+    margin-right: 0.2rem;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+}
+asset-item-list .asset-item-container .item-util-control {
+    background-color: #1d2022;
+    height: 100%;
+    margin: -0.2rem 0 0;
+    position: absolute;
+    right: 0;
+    list-style: none;
+}
+ul li ul, ul li ol {
+    margin-left: 1.25rem;
+    margin-bottom: 0;
+}
+ul {
+    margin-left: 1.1rem;
+}
+ul, ol, dl {
+    font-family: inherit;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    list-style-position: outside;
+    margin-bottom: 0.25rem;
+}
+.asset-item-list .asset-item-container .item-util-control .item-menu {
+    border-bottom: 1px black solid;
+}
+.asset-item-list .asset-item-container .item-util-control li {
+    height: 50%;
+    padding: 0.1rem 0.2rem 0.3rem 0.3rem;
+    background-color: #1d2022;
+}
+.asset-item-list .asset-item-container .item-util-control li {
+    height: 50%;
+    padding: 0.1rem 0.2rem 0.3rem 0.3rem;
+    background-color: #1d2022;
+}
+
   </style>
 </head>
 <body>

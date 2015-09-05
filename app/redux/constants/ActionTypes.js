@@ -1,7 +1,7 @@
 export const MARK_ONE = 'MARK_ONE';
 export const MARK_ALL = 'MARK_ALL';
 export const SHOW_CHILDREN = 'SHOW_CHILDREN';
-
+export const SHOW_MENU = 'SHOW_MENU';
 
 export const RESET_ERROR_MESSAGE = 'RESET_ERROR_MESSAGE';
 
