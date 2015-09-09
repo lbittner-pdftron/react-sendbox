@@ -1,0 +1,139 @@
+$detailPanHeight: calc(#{$sub-menu-height});
+.details-panel{
+	border-left: 1px $light-grey solid;
+	background: $dark-grey;
+	height: 100%;
+	height: calc(100% - 58px);
+	max-width: 100%;
+	position: absolute;
+	right: 0;
+	//padding-right: 1rem;
+	.details-content{
+		padding: 1rem;
+		max-width: 100%;
+	}
+	.mavis-field-label{
+		font-weight: $font-weight-bold;
+	}
+	.mavis-field-value{
+		padding-left: 5px;
+		color: $iron;
+	}
+	.tabs .tab-title{
+		&:hover{
+			background-color: $tabs-navigation-hover-bg-color !important;
+		}
+		a.active{
+			background-color: $dark-grey;
+			border-bottom: 1px solid $dark-grey;
+			border-left: 1px solid $button-hover-color;
+			border-right: 1px solid $button-hover-color;
+			color: white;
+		}
+	}
+}
+.details-top{
+	.milestone{
+		height: 200px;
+		@include border-size(1px, $light-grey);
+		background-color: $mid-grey;
+		padding: 0;
+		color: $base;
+		overflow: hidden;
+		.milestone-title{
+			background-color: $light-grey;
+			font-weight: $font-weight-bold;
+			color: $gainsboro;
+			font-size: 0.9rem;
+			padding: 0.2rem 0.4rem;
+			border-bottom: 1px solid $light-grey;
+		}
+		.milestone-table{
+			list-style: none;
+			overflow-y: auto !important;
+			height: 100%;
+			margin: 0;
+			li{
+				font-size: 0.7rem;
+				padding: 0.2rem 0.4rem;
+				border-bottom: 1px solid $light-grey;
+			}
+		}
+
+	}
+}
+
+.tabs{
+	font-weight: $font-weight-bold;
+	position: relative;
+	.tab-title{
+		&:first-of-type a.active{
+			border-left: none;
+		}
+		a.active{
+			box-shadow: inset 0 5px 0 0 $button-hover-color;
+			border-bottom: 1px solid $mid-grey;
+			z-index: 1000;
+			&:hover{
+				background-color: $dark-grey !important;
+			}
+		}
+		a:hover{
+			background-color: $dark-grey !important;
+		}
+	}
+}
+.details-content-area{
+	z-index: 0;
+	width: 100%;
+	margin: -1px 0 0 0;
+	padding-top: 0.5rem;
+	background: $dark-grey;
+	height: calc(100% - 152px);
+	border-top: 1px solid $button-hover-color;
+	.content{
+		height: 100%;
+		overflow-y: auto;
+		overflow-x: hidden;
+		padding: 1rem 1rem;
+		.mavis-field-cata{
+			margin-top: 1rem;
+			&:first-of-type{
+				margin-top: 0;
+			}
+		}
+	}
+	.img-div img{
+		min-width: 100%;
+		height: 250px;
+		object-fit: cover;
+		margin-bottom: 0.6rem;
+	}
+}
+.mavis-fields-area{
+	margin: 0.8rem 0;
+}
+.sub-asset-collection{
+	margin: 0;
+	padding: 0;
+	li{
+		a, div{
+			margin-bottom: 0.8rem;
+		}
+		div{
+			margin-top: -1.6rem;
+		}
+		a img{
+			width: 20px !important;
+			float: right;
+		}
+		hr{
+			display: none;
+		}
+	}
+	li.active{
+		hr{
+			display:block;
+		}
+	}
+}

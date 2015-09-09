@@ -2,6 +2,10 @@ export const MARK_ONE = 'MARK_ONE';
 export const MARK_ALL = 'MARK_ALL';
 export const SHOW_CHILDREN = 'SHOW_CHILDREN';
 export const SHOW_MENU = 'SHOW_MENU';
+export const CHECK_ONE = 'CHECK_ONE';
+export const CHECK_ALL = 'CHECK_ALL';
+export const CHECK_ONE_TASK = 'CHECK_ONE_TASK';
+export const CHECK_ALL_TASK = 'CHECK_ALL_TASK';
 
 export const RESET_ERROR_MESSAGE = 'RESET_ERROR_MESSAGE';
 

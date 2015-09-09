@@ -14,19 +14,19 @@ import {ENTITY_ASSETS_REQUEST,
 		TASK_ASSETS,
 		TASK_GROUPS,
 		TASK_PROJECTS,
-		SHOW_MENU}
-						from '../constants/ActionTypes';
+		CHECK_ONE,CHECK_ALL,
+		CHECK_ONE_TASK,
+		CHECK_ALL_TASK,
+		SHOW_MENU} from '../constants/ActionTypes';
 
 import union from 'lodash/array/union';
 import merge from 'lodash/object/merge';
-import indexBy from 'lodash/collection/indexBy';
 import { combineReducers } from 'redux';
 
-window.indexBy = indexBy
 
 
 
-export function groups(state = { entities:[], expended: {}, subAssets:{} }, action) {
+export function groups(state = { entities:[], expanded: {}, subAssets:{} }, action) {
 	var stub1 = state
 	switch (action.type) {
 		case ENTITY_GROUPS_SUCCESS:
@@ -38,7 +38,7 @@ export function groups(state = { entities:[], expended: {}, subAssets:{} }, acti
 					entities: nEntities,
 					subAssets: nSubAssets,
 					nextPageUrl,
-					expended: state.expended
+					expanded: state.expanded
 				});
 			}
 			return state;
@@ -47,7 +47,7 @@ export function groups(state = { entities:[], expended: {}, subAssets:{} }, acti
 	}
 }
 
-export function assets(state = { entities:[], expended: {}, subAssets:{} }, action) {
+export function assets(state = { entities:[], expanded: {}, subAssets:{} }, action) {
 	var stub2 = state
 	switch (action.type) {
 		case ENTITY_ASSETS_SUCCESS:
@@ -59,14 +59,41 @@ export function assets(state = { entities:[], expended: {}, subAssets:{} }, acti
 					entities: nEntities,
 					subAssets: nSubAssets,
 					nextPageUrl,
-					expended: state.expended
+					expanded: state.expanded
 				});
 			}
 			return state;
+		case CHECK_ONE:
+		case CHECK_ALL:
+			return Object.assign({}, state, {
+					entities: checkboxes(state.entities, action),
+					subAssets: state.subAssets,
+					nextPageUrl: state.nextPageUrl,
+					expanded: state.expanded
+				});;
 		default:
 			return state;
 	}
 }
+
+function checkboxes(state = [], action) {
+	switch (action.type) {
+		case CHECK_ONE:
+		case CHECK_ONE_TASK:
+			return state.map(entity =>
+				entity.id === action.id ? Object.assign({}, entity, { $checked: !entity.$checked }) : entity
+			);
+		case CHECK_ALL:
+		case CHECK_ALL_TASK:
+			const areAllMarked = state.every(entity => entity.$checked);
+		    return state.map(entity => Object.assign({}, entity, {
+		      	$checked: !areAllMarked
+		    }));
+		default:
+			return state;
+	}
+}
+
 function tasks(state = {isFetching:false, didInvalidate:false, items:[]}, action) {
 	switch (action.type) {
 		case ENTITY_SUBTASK_FAILURE:
@@ -95,6 +122,14 @@ export function subAssets(state = {}, action) {
 		case ENTITY_SUBTASK_SUCCESS:
 			// debugger;
 			return Object.assign({}, state, {[action.entityId]: tasks(state[action.entityId], action)});
+		case CHECK_ONE_TASK:
+		case CHECK_ALL_TASK:
+			var it = state[action.entityId]; // {}
+			it.items = checkboxes(it.items, action)
+			return Object.assign({},
+				state,
+				it
+			);
 		default:
 			return state;
 	}
@@ -138,13 +173,23 @@ export function menu(state = -1, action) {
 			else {
 				state = action.id
 			}
-
-			console.log(state)
 			return state;
 		default:
 			return state;
 	}
 }
+
+export function searches(state = {}, action) {
+
+	switch (action.type) {
+		case 'SEARCH_TERM':
+			console.log('searches',action)
+			return state;
+		default:
+			return state;
+	}
+}
+
 
 
 

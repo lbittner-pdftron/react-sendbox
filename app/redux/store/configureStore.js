@@ -3,7 +3,7 @@ import { createStore, applyMiddleware, combineReducers }
 import thunkMiddleware 					from 'redux-thunk';
 import { Schema, arrayOf, normalize } 	from 'normalizr';
 import 'isomorphic-fetch';
-import Qs 								from 'Qs'
+import qs 								from 'qs'
 import * as reducers 					from '../reducers/entities';
 
 
@@ -59,7 +59,7 @@ const api = store => next => action => {
  	var queryString = ' '
 
  	if(typeof filter !== 'string') {
- 		queryString = Qs.stringify(filter)
+ 		queryString = qs.stringify(filter)
  	}
 
  	const [requestType, successType, failureType] = types;
@@ -73,16 +73,39 @@ const api = store => next => action => {
  	next(actionWith({ type: requestType }));
 
 	return callApi(endpoint, queryString ).then(
- 		response => next(actionWith({ response, type: successType })),
+ 		response => next(actionWith({ response, type: successType, meta: { delay: 500 } })),
  		error => next(actionWith({  type: failureType, error: error.message || 'Something bad happened' }))
  		);
 };
+/**
+ * Schedules actions with { meta: { delay: N } } to be delayed by N milliseconds.
+ * Makes `dispatch` return a function to cancel the interval in this case.
+ */
+const timeoutScheduler = store => next => action => {
 
+  if (!action.meta || !action.meta.delay) {
+    return next(action);
+  }
+  if(action.type !== "ENTITY_SUBTASK_SUCCESS") {
+  	return next(action);
+  }
+
+  let intervalId = setTimeout(
+    () => next(action),
+    action.meta.delay
+  );
+
+  return function cancel() {
+    clearInterval(intervalId);
+  };
+};
 
 const reducer = combineReducers(reducers);
 const createStoreWithMiddleware = applyMiddleware(
+
 	thunkMiddleware,
-	api
+	api,
+	timeoutScheduler
 )(createStore);
 
 /**

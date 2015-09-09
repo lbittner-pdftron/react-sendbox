@@ -49,7 +49,7 @@ var config = {
 	{
 		test: /\.js$/,
 		exclude: /node_modules/,
-		loader: "babel-loader"
+		loader: "babel-loader?optional=runtime"
 	},
 	{
         test: /\.scss$/,

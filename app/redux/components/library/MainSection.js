@@ -1,46 +1,58 @@
-import React, { Component, PropTypes } from 'react';
-import AssetItem from './AssetItem';
+import React, { Component, PropTypes } 	from 'react';
+import AssetItem 						from './AssetItem';
 
 class MainSection extends Component {
 	constructor(props, context) {
 	    super(props, context);
 	    this.state = {
-	      expended: this.props.expended || {}
+	      expanded: this.props.expanded || {}
 	    };
   	}
 
+  	unexpandAll() {
+  		this.setState({
+  			expanded: {}
+  		});
+  	}
 
 	fetchSubTasks(id) {
-		const { expended }  = this.state;
+		const { expanded }  = this.state;
 		const { actions } = this.props;
 
-		let isExtended = expended[id] || false;
+		let isExtended = expanded[id] || false;
 		if(!isExtended) {
 			actions.fetchSubTasks(id)
 		}
 
-		expended[id] = !expended[id];
-
+		expanded[id] = !expanded[id];
 		this.setState({
-			expended: expended
+			expanded: expanded
 		})
 	}
 
 	render() {
 		const { entities, menu } = this.props;
-		const { actions: { showMenu }} = this.props;
+		const { actions: { showMenu, checkOne, checkOneTask, checkAllTask }} = this.props;
 		return (
 			<div className="asset-list-area">
+
 				<ul className='asset-item-list'>
 					{
 						entities.map( function(entity, index) {
+							var tasks = this.props.subAssets[entity.id]
 							return (<AssetItem
 										key={index}
+										subTasks={tasks}
 										entity={entity}
 										onShowMenu={() => showMenu(entity.id)}
-										isMenuOpen={entity.id === menu}
+										onCheckOne={() => checkOne(entity.id)}
 										onFetchTasks={() => this.fetchSubTasks(entity.id)}
-										isExpended={this.state.expended[entity.id]  || false}
+
+										onCheckOneTask={(id) => checkOneTask(entity.id, id)}
+										onCheckAllTask={() => checkAllTask(entity.id)}
+
+										isMenuOpen={entity.id === menu}
+										isExpended={this.state.expanded[entity.id]  || false}
 									/>);
 						}, this)
 					}

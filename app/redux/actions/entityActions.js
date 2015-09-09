@@ -12,7 +12,10 @@ import { ENTITY_ASSETS_REQUEST,
 		TASK_ASSETS,
 		TASK_GROUPS,
 		TASK_PROJECTS,
-		SHOW_MENU } from '../constants/ActionTypes';
+		SHOW_MENU,
+		CHECK_ONE,CHECK_ALL,
+		CHECK_ONE_TASK,
+		CHECK_ALL_TASK} from '../constants/ActionTypes';
 import 'isomorphic-fetch';
 const projectID = 1;
 
@@ -70,6 +73,7 @@ export function fetchSubTasks(entityId) {
 		// debugger
 		var fetchAction = {};
 		fetchAction['entityId'] = entityId;
+
 		fetchAction['CALL_API'] = {
 			types: [ENTITY_SUBTASK_REQUEST, ENTITY_SUBTASK_SUCCESS, ENTITY_SUBTASK_FAILURE],
 			endpoint: url,
@@ -83,6 +87,21 @@ export function showMenu(id) {
   return { type: SHOW_MENU, id };
 }
 
+export function checkOne(id) {
+  return { type: CHECK_ONE, id };
+}
+
+export function checkAll() {
+  return { type: CHECK_ALL };
+}
+
+export function checkOneTask(entityId, id) {
+	console.log('*****', entityId, id)
+  return { type: CHECK_ONE_TASK, entityId, id };
+}
+export function checkAllTask(entityId) {
+  return { type: CHECK_ALL_TASK, entityId };
+}
 
 export function fetchGroups(project, category) {
 	return function(dispatch, getState) {

@@ -29,13 +29,13 @@ class PanelOne extends Component {
 	}
 
 	fetchChildren(id) {
-		var isExtended = this.props.expended[id] || false;
+		var isExtended = this.props.expanded[id] || false;
 		if(!isExtended) {
 			this.props.actions.fetchSubTasks(id)
 		}
-		this.props.expended[id] = !this.props.expended[id];
+		this.props.expanded[id] = !this.props.expanded[id];
 		this.setState({
-			expended: this.props.expended
+			expanded: this.props.expanded
 		})
 	}
 	renderMenu(isMenuOpen) {
@@ -59,13 +59,13 @@ class PanelOne extends Component {
 
 	render() {
 		var stub5 = this.props
-		const { category, entities, subAssets, expended, actions: { showMenu }, menu } = this.props;
+		const { category, entities, subAssets, expanded, actions: { showMenu }, menu } = this.props;
 
 		return (
 			<div className='asset-panel'>
 				<MainSection entities={entities}
 							tasks={subAssets}
-							expended={expended}
+							expanded={expanded}
 							menu={menu}
 							actions={this.props.actions}/>
 			</div>
@@ -77,7 +77,7 @@ class PanelOne extends Component {
 					{
 						entities.map(function(entity) {
 							// console.log(entity)
-							var isExtended = this.props.expended[entity.id] || false;
+							var isExtended = this.props.expanded[entity.id] || false;
 
 							var isSub = subAssets[entity.id] || null;
 							var tt2 = null
@@ -113,13 +113,13 @@ class PanelOne extends Component {
 
 function select (state) {
 	var stub4 = TASK_ASSETS
-	const { assets: { entities }, subAssets, assets: { expended }, menu } = state
+	const { assets: { entities }, subAssets, assets: { expanded }, menu } = state
 
 	var result  = {
 		category: TASK_ASSETS,
 		entities: entities,
 		subAssets: subAssets,
-		expended: expended,
+		expanded: expanded,
 		menu
 	};
 

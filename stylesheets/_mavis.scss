@@ -1,0 +1,247 @@
+//Mixins
+@mixin border-size($size, $color){
+	border: $size solid $color;
+}
+@mixin placeholder{
+	color: $charcoal;
+	font-style: italic;
+}
+@mixin border-radius($radius) {
+	-webkit-border-radius: $radius;
+	-moz-border-radius: $radius;
+	-ms-border-radius: $radius;
+	border-radius: $radius;
+}
+@mixin transformY($yposition, $ngyposition){
+	top: $yposition;
+	-webkit-transform: translateY($ngyposition);
+		-ms-transform: translateY($ngyposition);
+			transform: translateY($ngyposition);
+}
+@mixin transformX($xposition, $ngxposition){
+	left: $xposition;
+	-webkit-transform: translateX($ngxposition);
+		-ms-transform: translateX($ngxposition);
+			transform: translateX($ngxposition);
+}
+//Set variable
+$icon-size: 15px;
+
+html,body{
+	height: 100%;
+	min-height: 100%;
+	color: $body-font-color;
+	overflow: hidden;
+	font-size: 16px;
+}
+.row{
+	max-width: 500rem !important;
+}
+a{
+	color: $link-color;
+	&:hover{
+		color: $button-hover-color;
+	}
+}
+.view-container{
+	height: 100%;
+}
+.all-up-case{
+	text-transform: uppercase;
+}
+.img-div{
+	min-width: 100%;
+}
+.offline{
+	background: rgba(80,0,0,0.7) !important;
+}
+.larger-font{
+	font-size: 1.2rem;
+}
+.ellipsis-text{
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.word-wrapping{
+	word-wrap: break-word;
+}
+.custom-padding-size{
+	margin-top: -0.6rem;
+	padding: 0.2rem 0.5rem !important;
+}
+.mavis-action-menu{
+	width: 15px;
+	height: 15px;
+}
+.expand-collection{
+	width: 15px;
+	height: 15px;
+}
+label.inline{
+	margin-bottom: 0.6rem;
+}
+.line-divider{
+	margin: 0;
+}
+//Status layout and color
+.mavis-status{
+	top: 3px;
+	width: 8px;
+	height: 8px;
+	background-color: $white;
+	position: relative;
+	display: block;
+	float: left;
+	margin-right: 0.2rem;
+	@include border-radius(3px);
+}
+.status-0{
+	background-color: #008d55 !important; /*Awarded*/
+}
+.status-1{
+	background-color: #00a81e !important; /*Online*/
+}
+//Disable UI Status
+.disabled{
+	color: $oil;
+}
+//Assets and Collections color
+.item-selected{
+	background-color: $button-hover-color !important;
+	color: white !important;
+}
+.item-active{
+	@include border-size(1px, $button-hover-color);
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+		    box-sizing: border-box;
+}
+//Required Fields
+.required label::after{
+	content: " *";
+	font-size: 1rem;
+	color: white;
+}
+//Error and Wraning color
+.error-msg{
+	color: $warning-color;
+	font-size: 0.7rem;
+}
+.has-error{
+	margin-bottom: 0.2rem;
+	label{
+		color: $warning-color;
+	}
+	&.required label::after{
+	color: $warning-color;
+	}
+	p.field-error{
+		display: block;
+		color: $warning-color;
+		font-family: $body-font-family;
+		font-weight: $font-weight-normal;
+		font-size: 0.7rem;
+	}
+}
+p.field-error{
+	display: none;
+}
+//Checkbox overwrite
+input[type="checkbox"] + label,
+input[type="radio"] + label {
+  display: inline-block;
+  margin-left: 0;
+  margin-right: 1rem;
+  margin-bottom: 0;
+  vertical-align: baseline;
+}
+//Remove all outline focus
+input:focus,
+select:focus,
+textarea:focus,
+a:focus,
+div,
+button:focus {
+		outline: none;
+}
+//React modal overlay
+.ReactModal__Overlay {
+	background-color: rgba(0, 0, 0, 0.45);
+}
+//Sort arrows
+.sort-asc{
+	margin-left: 0.35rem;
+	font-size: 0.8rem;
+	&.sort-active{
+		color: $link-color;
+	}
+}
+.sort-desc{
+	margin-left: -0.47rem;
+	font-size: 0.8rem;
+	&.sort-active{
+		color: $link-color;
+	}
+}
+//Search bar
+.search-bar{
+	margin-top: 0.8rem !important;
+}
+//Flexbox
+.grid-block {
+	display: flex;
+	height: 100vh;
+	position: relative;
+	overflow: hidden;
+	flex: 1 1;
+	flex-flow: row wrap;
+	flex-wrap: nowrap;
+	align-items: stretch;
+	justify-content: flex-start;
+	order: 0;
+	height: auto;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+	-ms-overflow-style: -ms-autohiding-scrollbar; }
+	.grid-content .grid-block {
+		margin-left: -0.8rem;
+		margin-right: -0.8rem; }
+
+.grid-content {
+	display: block;
+	padding: 0 0.8rem;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+	-ms-overflow-style: -ms-autohiding-scrollbar;
+	flex: 1 1; }
+	.grid-content.collapse {
+		padding: 0; }
+
+//scrollbar
+::-webkit-scrollbar{
+		width: 6px;
+		height: 6px;
+		margin: 0;
+		padding: 0;
+}
+::-webkit-scrollbar-track{
+		background-color: $light-grey;
+}
+::-webkit-scrollbar-thumb {
+		background-color: $button-color;
+}
+::-webkit-scrollbar-thumb:hover {
+		background-color: $button-hover-color;
+}
+
+//placeholder
+::-webkit-input-placeholder{
+		@include placeholder;
+}
+::-moz-placeholder{
+		@include placeholder;
+}
+::-ms-input-placeholder{
+		@include placeholder;
+}
