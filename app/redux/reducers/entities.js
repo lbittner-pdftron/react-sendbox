@@ -21,22 +21,23 @@ import {ENTITY_ASSETS_REQUEST,
 
 import union from 'lodash/array/union';
 import merge from 'lodash/object/merge';
+import _ 	from 'lodash';
 import { combineReducers } from 'redux';
 
 
 
 
-export function groups(state = { entities:[], expanded: {}, subAssets:{} }, action) {
+export function groups(state = { entities:[], expanded: {}, assetTasks:{} }, action) {
 	var stub1 = state
 	switch (action.type) {
 		case ENTITY_GROUPS_SUCCESS:
 			if(action.response && action.response.data) {
-				var nSubAssets = Object.assign({}, state.subAssets);
+				var nassetTasks = Object.assign({}, state.assetTasks);
 				var nEntities =  union(state.entities, action.response.data);
 				var nextPageUrl = action.response.nextPageUrl;
 				return  Object.assign({}, state, {
 					entities: nEntities,
-					subAssets: nSubAssets,
+					assetTasks: nassetTasks,
 					nextPageUrl,
 					expanded: state.expanded
 				});
@@ -47,18 +48,22 @@ export function groups(state = { entities:[], expanded: {}, subAssets:{} }, acti
 	}
 }
 
-export function assets(state = { entities:[], expanded: {}, subAssets:{} }, action) {
+export function assets(state = { entities:{}, expanded: {}, assetTasks:{} }, action) {
+
 	var stub2 = state
 	switch (action.type) {
 		case ENTITY_ASSETS_SUCCESS:
-			if(action.response && action.response.data) {
-				var nSubAssets = Object.assign({}, state.subAssets);
-				var nEntities =  union(state.entities, action.response.data);
+			if(action.response && action.response.entities) {
+
+				var nassetTasks = Object.assign({}, state.assetTasks);
+				// var nEntities =  union(state.entities, action.response.data);
 				var nextPageUrl = action.response.nextPageUrl;
+				var nEntities = merge({}, state.entities, action.response.entities.data);
+				console.log(nEntities)
+				debugger;
 				return  Object.assign({}, state, {
 					entities: nEntities,
-					subAssets: nSubAssets,
-					nextPageUrl,
+					assetTasks: nassetTasks,
 					expanded: state.expanded
 				});
 			}
@@ -67,15 +72,58 @@ export function assets(state = { entities:[], expanded: {}, subAssets:{} }, acti
 		case CHECK_ALL:
 			return Object.assign({}, state, {
 					entities: checkboxes(state.entities, action),
-					subAssets: state.subAssets,
-					nextPageUrl: state.nextPageUrl,
+					assetTasks: state.assetTasks,
 					expanded: state.expanded
 				});;
 		default:
 			return state;
 	}
 }
+function assetPanel({ types, mapActionToKey }) {
+	function updateMe( state = { expanded:[], selected:[] }, action ) {
+		switch(action.type) {
+			case 'CHECK_ONEX':
+				var arr = union(state.expanded, [action.id])
+				return {
+					expanded: arr,
+					selected: []
+				}
 
+			default:
+				return state
+		}
+	}
+	return function updateSettnig(state = {}, action) {
+		switch(action.type) {
+			case 'CHECK_ONEX':
+				debugger
+				const key = mapActionToKey(action) || 'asset';
+				return merge({}, state, {
+			        [key]: updateMe(state[key], action)
+			      });;
+			default:
+				return state
+
+
+		}
+
+	}
+//state = { expanded:[], selected:[] }, action
+}
+export const setting = combineReducers({
+	assetList: assetPanel({
+		mapActionToKey: action => action.category,
+	    types: [
+	      'STARRED_REQUEST'
+	    ]
+  	}),
+  	// groupList: assetPanel({
+   //  	mapActionToKey: action => action.fullName,
+	  //   types: [
+	  //     	'STARGAZERS_REQUEST',
+	  //   ]
+  	// })
+});
 function checkboxes(state = [], action) {
 	switch (action.type) {
 		case CHECK_ONE:
@@ -85,7 +133,7 @@ function checkboxes(state = [], action) {
 			);
 		case CHECK_ALL:
 		case CHECK_ALL_TASK:
-			const areAllMarked = state.every(entity => entity.$checked);
+			const areAllMarked = (action.uncheck) ? action.uncheck : state.every(entity => entity.$checked);
 		    return state.map(entity => Object.assign({}, entity, {
 		      	$checked: !areAllMarked
 		    }));
@@ -106,17 +154,20 @@ function tasks(state = {isFetching:false, didInvalidate:false, items:[]}, action
 				didInvalidate: false
 			});
 		case ENTITY_SUBTASK_SUCCESS:
+			var ids = action.response.result
+			var items = ids.map(id => action.response.entities.data[id]);
+
 			return Object.assign({}, state, {
 				isFetching: false,
 				didInvalidate: false,
-				items: action.response.data,
+				items: items,
 				// lastUpdated: action.receivedAt
 			});
 		default:
 			return state;
 	}
 }
-export function subAssets(state = {}, action) {
+export function assetTasks(state = {}, action) {
 	switch (action.type) {
 		case ENTITY_SUBTASK_REQUEST:
 		case ENTITY_SUBTASK_SUCCESS:
@@ -130,18 +181,20 @@ export function subAssets(state = {}, action) {
 				state,
 				it
 			);
+			return state;
 		default:
 			return state;
 	}
 }
 
 export function pagination(state = {
-		[TASK_ASSETS] : { nextPageUrl : undefined },
-		[TASK_GROUPS] : { nextPageUrl : undefined } }, action) {
+		[TASK_ASSETS] : { nextPageUrl : undefined, ids: [] },
+		[TASK_GROUPS] : { nextPageUrl : undefined, ids: [] } }, action) {
 	switch (action.type) {
 		case ENTITY_ASSETS_SUCCESS:
-			if(action.response && action.response.nextPageUrl) {
-				var assets = { nextPageUrl: action.response.nextPageUrl };
+			if(action.response) {
+				var ids = union(state[TASK_ASSETS].ids, action.response.result);
+				var assets = { nextPageUrl: action.response.nextPageUrl, ids };
 				return merge({}, state, {
 			        assets: assets,
 			        groups: state.groups

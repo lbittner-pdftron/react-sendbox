@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, combineReducers }
 										from 'redux';
+import { Schema, arrayOf, normalize }   from 'normalizr';
 import thunkMiddleware 					from 'redux-thunk';
-import { Schema, arrayOf, normalize } 	from 'normalizr';
 import 'isomorphic-fetch';
 import qs 								from 'qs'
 import * as reducers 					from '../reducers/entities';
@@ -11,7 +11,13 @@ window.Schema = Schema;
 window.arrayOf = arrayOf;
 window.normalize = normalize;
 
+var EntitySchema = new Schema('data', { idAttribute: 'id'});
 
+
+
+const userSchema = new Schema('users', {
+  idAttribute: 'login'
+});
 
 const API_ROOT = 'http://localhost:3000/api/';
 
@@ -41,8 +47,8 @@ function callApi(endpoint, queryString) {
 					}
 					const nextPageUrl = getNextPageUrl(response) || undefined;
 
-					// return json;
-					return Object.assign({}, { data: json }, { nextPageUrl } );
+
+					return Object.assign({}, normalize(json, arrayOf(EntitySchema)), { nextPageUrl } );
 				});
 }
 
@@ -73,7 +79,7 @@ const api = store => next => action => {
  	next(actionWith({ type: requestType }));
 
 	return callApi(endpoint, queryString ).then(
- 		response => next(actionWith({ response, type: successType, meta: { delay: 500 } })),
+ 		response => next(actionWith({ response, type: successType, meta: { delay: 200 } })),
  		error => next(actionWith({  type: failureType, error: error.message || 'Something bad happened' }))
  		);
 };
