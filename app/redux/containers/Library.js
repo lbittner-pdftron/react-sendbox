@@ -1,12 +1,13 @@
 import React, { Component } 						from 'react';
 import { bindActionCreators, combineReducers } 		from 'redux';
 import { connect } 									from 'react-redux';
-import { TASK_ASSETS } 								from '../constants/ActionTypes';
+import { TASK_ASSETS, ASSET_PANEL }					from '../constants/ActionTypes';
 import { fetchAssets, fetchSubTasks,
 		showMenu, checkOne, checkAll,
 		checkOneTask, checkAllTask } 				from '../actions/entityActions';
 import MainSection 									from '../components/library/MainSection';
 import SearchBar 									from '../components/library/SearchBar';
+
 
 class Library extends Component {
 	componentDidMount() {
@@ -19,10 +20,10 @@ class Library extends Component {
 	}
 	render() {
 		const { actions: { checkAll }} = this.props;
-		var total = 0;
-		for (var i = this.props.entities.length - 1; i >= 0; i--) {
-			if(this.props.entities[i].$checked) total++;
-		}
+		var total = 1//this.props.setting.selected.length;
+		// for (var i = this.props.entities.length - 1; i >= 0; i--) {
+		// 	if(this.props.entities[i].$checked) total++;
+		// }
 
 		return (
 			<div className='asset-panel'>
@@ -61,7 +62,7 @@ class Library extends Component {
 								<div>
 									<input id="sAll" type="checkbox"
 										checked={total===this.props.entities.length}
-										onChange={() => checkAll()}/>
+										onChange={(event) => checkAll(TASK_ASSETS, event.target.checked)}/>
 									<label htmlFor="sAll" className="left">
 										<span></span>
 									</label>
@@ -70,7 +71,7 @@ class Library extends Component {
 									<p>
 										<a href="" className="selected-item">{total}</a> Item selected
 										<a href="javascript:void(0)" className="clear-assets"
-											onClick={() => checkAll(true)}>Clear</a>
+											onClick={() => checkAll(TASK_ASSETS, false)}>Clear</a>
 									</p>
 								</div>
 								<div className="assets-action-items right">
@@ -106,12 +107,18 @@ function select (state) {
 
 	const array = pagination.ids.map(id => entities[id]);
 
+
+	// const setting = state.setting[TASK_ASSETS] || { expanded:[], selected:[] };
+	const libraryPanel = state.libraryPanel;
+	// console.log(setting.selected)
 	var result  = {
 		category: TASK_ASSETS,
 		entities: array,
 		assetTasks,
 		expanded,
-		menu
+		menu,
+		// setting,
+		libraryPanel
 	};
 
 	return result;

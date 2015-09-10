@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } 	from 'react';
 import AssetItem 						from './AssetItem';
+import { TASK_ASSETS,TASK_TASKS, ASSET_PANEL }		from '../../constants/ActionTypes';
 
 class MainSection extends Component {
 	constructor(props, context) {
@@ -31,8 +32,9 @@ class MainSection extends Component {
 	}
 
 	render() {
-		const { entities, menu } = this.props;
+		const { entities, menu, setting } = this.props;
 		const { actions: { showMenu, checkOne, checkOneTask, checkAllTask }} = this.props;
+		//checkOneTask(entity.id, id)
 		return (
 			<div className="asset-list-area">
 
@@ -40,15 +42,17 @@ class MainSection extends Component {
 					{
 						entities.map( function(entity, index) {
 							var tasks = this.props.assetTasks[entity.id]
+							var isChecked = false//setting.selected.indexOf(entity.id) > -1
 							return (<AssetItem
 										key={index}
+										isChecked={isChecked}
 										subTasks={tasks}
 										entity={entity}
 										onShowMenu={() => showMenu(entity.id)}
-										onCheckOne={() => checkOne(entity.id)}
+										onCheckOne={() => checkOne(TASK_ASSETS, entity.id)}
 										onFetchTasks={() => this.fetchSubTasks(entity.id)}
 
-										onCheckOneTask={(id) => checkOneTask(entity.id, id)}
+										onCheckOneTask={(id) => checkOne(TASK_TASKS, entity.id, id) }
 										onCheckAllTask={() => checkAllTask(entity.id)}
 
 										isMenuOpen={entity.id === menu}

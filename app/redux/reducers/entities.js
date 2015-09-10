@@ -12,6 +12,7 @@ import {ENTITY_ASSETS_REQUEST,
 		ENTITY_GROUPS_SUCCESS,
 		ENTITY_GROUPS_FAILURE,
 		TASK_ASSETS,
+		TASK_TASKS,
 		TASK_GROUPS,
 		TASK_PROJECTS,
 		CHECK_ONE,CHECK_ALL,
@@ -79,51 +80,112 @@ export function assets(state = { entities:{}, expanded: {}, assetTasks:{} }, act
 			return state;
 	}
 }
-function assetPanel({ types, mapActionToKey }) {
-	function updateMe( state = { expanded:[], selected:[] }, action ) {
-		switch(action.type) {
-			case 'CHECK_ONEX':
-				var arr = union(state.expanded, [action.id])
-				return {
-					expanded: arr,
-					selected: []
-				}
+// function updateMe( state = { expanded:[], selected:{} }, action ) {
+// 	switch(action.type) {
+// 		case 'CHECK_ONEX':
+// 			state.selected[action.id] = !state.selected[action.id] || false;
+// 			return Object.assign({}, state, {
+// 				expanded:state.expanded,
+// 				selected:state.selected
+// 			})
+// 		case 'CHECK_ALLX':
+// 			var newArr = {}
+// 				for (var i = 0; i < action.ids.length; i++) {
+// 					newArr[action.ids[i]] = action.isAll
+// 				};
+// 				let result = Object.assign({}, state, {
+// 					expanded: state.expanded,
+// 					selected: newArr,
+// 				});
 
-			default:
-				return state
-		}
+// 				console.log('updateMe', result)
+// 				return result
+// 		default:
+// 			return state
+// 	}
+// }
+function updateMe( state = { expanded:[], selected:[] }, action ) {
+	switch(action.type) {
+		case 'CHECK_ONEX':
+			var index = state.selected.indexOf(action.id);
+			if (index > -1) state.selected.splice(index, 1);
+			else state.selected.push(action.id);
+
+			return Object.assign({}, state, {
+				expanded: state.expanded,
+				selected: state.selected
+			});
+
+		case 'CHECK_ALLX':
+			return Object.assign({}, state, {
+				expanded: state.expanded,
+				selected: (action.isChecked) ? union(action.ids) : []
+			});
+		default:
+			return state;
 	}
-	return function updateSettnig(state = {}, action) {
-		switch(action.type) {
-			case 'CHECK_ONEX':
-				debugger
-				const key = mapActionToKey(action) || 'asset';
-				return merge({}, state, {
-			        [key]: updateMe(state[key], action)
-			      });;
-			default:
-				return state
-
-
-		}
-
-	}
-//state = { expanded:[], selected:[] }, action
 }
-export const setting = combineReducers({
-	assetList: assetPanel({
-		mapActionToKey: action => action.category,
-	    types: [
-	      'STARRED_REQUEST'
-	    ]
-  	}),
-  	// groupList: assetPanel({
-   //  	mapActionToKey: action => action.fullName,
-	  //   types: [
-	  //     	'STARGAZERS_REQUEST',
-	  //   ]
-  	// })
-});
+export function setting(state = {}, action) {
+
+
+	switch(action.type) {
+		case 'CHECK_ALLX':
+		case 'CHECK_ONEX':
+			debugger
+			const key = action.category;
+			return Object.assign({}, state, {
+		        [key]: updateMe(state[key], action)
+		      });
+		default:
+			return state
+
+
+	}
+}
+
+export function libraryPanel(state = { assets: { expanded:[], selected:[] }, tasks: {} }, action) {
+	switch(action.type) {
+		case 'CHECK_ALLX':
+		case 'CHECK_ONEX':
+			debugger
+			if(action.category === 'assets') {
+				const key = action.category;
+				return Object.assign({}, state, {
+			        assets: updateMe(state.assets, action),
+			        tasks: state.tasks
+			      });
+			}
+			else if(action.category === 'tasks') {
+				const key = action.assetId;
+				if(state.tasks[action.assetId])
+					state.tasks[action.assetId] = { expanded:[], selected:[] }
+				return Object.assign({}, state, {
+			        assets: state.assets,
+			        tasks: updateMe(state.tasks[action.assetId], action),
+		      	});
+			}
+		default:
+			return state
+	}
+}
+
+
+
+
+// export const setting = combineReducers({
+// 	assetList: assetPanel({
+// 		mapActionToKey: action => action.category,
+// 	    types: [
+// 	      'STARRED_REQUEST'
+// 	    ]
+//   	}),
+//   	// groupList: assetPanel({
+//    //  	mapActionToKey: action => action.fullName,
+// 	  //   types: [
+// 	  //     	'STARGAZERS_REQUEST',
+// 	  //   ]
+//   	// })
+// });
 function checkboxes(state = [], action) {
 	switch (action.type) {
 		case CHECK_ONE:

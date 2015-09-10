@@ -7,6 +7,7 @@ export const CHECK_ALL = 'CHECK_ALL';
 export const CHECK_ONE_TASK = 'CHECK_ONE_TASK';
 export const CHECK_ALL_TASK = 'CHECK_ALL_TASK';
 
+
 export const RESET_ERROR_MESSAGE = 'RESET_ERROR_MESSAGE';
 
 export const ENTITY_ASSETS_REQUEST = 'ENTITY_ASSETS_REQUEST';
@@ -22,5 +23,7 @@ export const ENTITY_SUBTASK_SUCCESS = 'ENTITY_SUBTASK_SUCCESS';
 export const ENTITY_SUBTASK_FAILURE = 'ENTITY_SUBTASK_FAILURE';
 
 export const TASK_ASSETS = 'assets';
+export const TASK_TASKS = 'tasks';
 export const TASK_GROUPS = 'groups';
 export const TASK_PROJECTS = 'projects';
+export const ASSET_PANEL = 'assets';

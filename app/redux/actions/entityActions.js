@@ -87,13 +87,13 @@ export function showMenu(id) {
   return { type: SHOW_MENU, id };
 }
 
-export function checkOne(id) {
-  return { type: CHECK_ONE, id };
-}
+// export function checkOne(id) {
+//   return { type: CHECK_ONE, id };
+// }
 
-export function checkAll(uncheck) {
-  	return { type: CHECK_ALL, uncheck };
-}
+// export function checkAll(uncheck) {
+//   	return { type: CHECK_ALL, uncheck };
+// }
 
 export function checkOneTask(entityId, id) {
 	console.log('*****', entityId, id)
@@ -104,17 +104,30 @@ export function checkAllTask(entityId) {
 }
 
 
-export function checkOne(id) {
+export function checkOne(category, assetId, taskId) {
 	return function(dispatch, getState) {
 		var action = {};
-		action.id = 7;
-		action.category = 'assets'
-		action.setting = { expanded:[], selected:[] };
+		action.id = taskId || assetId;
+		action.assetId = assetId;
+		action.taskId = taskId;
+		action.category = category;
 		action.type = 'CHECK_ONEX'
 		return dispatch(action);
 	}
 }
+export function checkAll(category, isChecked) {
+	return function(dispatch, getState) {
 
+		var ids = getState().pagination[category].ids;
+
+		var action = {};
+		action.ids = ids;
+		action.isChecked = isChecked;
+		action.category = category;
+		action.type = 'CHECK_ALLX'
+		return dispatch(action);
+	}
+}
 
 export function fetchGroups(project, category) {
 	return function(dispatch, getState) {

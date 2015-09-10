@@ -36,7 +36,7 @@ class AssetItem extends Component {
 
 	render() {
 		const { entity, subTasks } = this.props;
-		const { isExpended, isSelected, isMenuOpen } = this.props;
+		const { isExpended, isChecked, isSelected, isMenuOpen } = this.props;
 		const { onCheckOne, onCheckAllTask, onCheckOneTask, onFetchTasks } = this.props;
 		const containerCLass = { 'item-selected': isSelected };
 		const listStyle = { expanded: isExpended };
@@ -53,7 +53,7 @@ class AssetItem extends Component {
 		return (
 			<li className={classNames(listStyle)}>
 				<div className={classNames('asset-item-container', containerCLass)}>
-					<input id={id} type="checkbox" checked={entity.$checked} />
+					<input id={id} type="checkbox" checked={isChecked} />
 					<label htmlFor={id} className="left">
 						<span onClick={() => onCheckOne()}></span>
 					</label>
