@@ -52,7 +52,7 @@ export function fetchAssets(project, category) {
 export function fetchSubTasks(entityId) {
 	return function(dispatch, getState) {
 		// dispatch({ type: 'OPEN', entityId: entityId })
-		var tasks = getState().subAssets[entityId];
+		var tasks = getState().assetTasks[entityId];
 		if(tasks) {
 			return dispatch({
 				type: 'EXIST',
@@ -91,8 +91,8 @@ export function checkOne(id) {
   return { type: CHECK_ONE, id };
 }
 
-export function checkAll() {
-  return { type: CHECK_ALL };
+export function checkAll(uncheck) {
+  	return { type: CHECK_ALL, uncheck };
 }
 
 export function checkOneTask(entityId, id) {
@@ -102,6 +102,19 @@ export function checkOneTask(entityId, id) {
 export function checkAllTask(entityId) {
   return { type: CHECK_ALL_TASK, entityId };
 }
+
+
+export function checkOne(id) {
+	return function(dispatch, getState) {
+		var action = {};
+		action.id = 7;
+		action.category = 'assets'
+		action.setting = { expanded:[], selected:[] };
+		action.type = 'CHECK_ONEX'
+		return dispatch(action);
+	}
+}
+
 
 export function fetchGroups(project, category) {
 	return function(dispatch, getState) {
@@ -120,9 +133,9 @@ export function fetchGroups(project, category) {
 						}
 					}
 
-		var fetchAction = {};
-		fetchAction['category'] = category;
-		fetchAction['CALL_API'] = {
+		var action = {};
+		action['category'] = category;
+		action['CALL_API'] = {
 			types: [ENTITY_GROUPS_REQUEST, ENTITY_GROUPS_SUCCESS, ENTITY_GROUPS_FAILURE],
 			endpoint: nextPageUrl,
 			filter:  filter,
@@ -130,6 +143,6 @@ export function fetchGroups(project, category) {
 			project: project
 		}
 
-		return dispatch(fetchAction);
+		return dispatch(action);
 	}
 }

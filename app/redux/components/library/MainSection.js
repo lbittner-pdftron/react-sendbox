@@ -39,7 +39,7 @@ class MainSection extends Component {
 				<ul className='asset-item-list'>
 					{
 						entities.map( function(entity, index) {
-							var tasks = this.props.subAssets[entity.id]
+							var tasks = this.props.assetTasks[entity.id]
 							return (<AssetItem
 										key={index}
 										subTasks={tasks}

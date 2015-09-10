@@ -70,7 +70,7 @@ class Library extends Component {
 									<p>
 										<a href="" className="selected-item">{total}</a> Item selected
 										<a href="javascript:void(0)" className="clear-assets"
-											onClick={() => checkAll()}>Clear</a>
+											onClick={() => checkAll(true)}>Clear</a>
 									</p>
 								</div>
 								<div className="assets-action-items right">
@@ -99,11 +99,17 @@ class Library extends Component {
 }
 
 function select (state) {
-	const { assets: { entities }, subAssets, assets: { expanded }, menu } = state
+	var pagination = state.pagination[TASK_ASSETS];
+
+	const { assetTasks, menu } = state;
+	const { assets: { entities, expanded } } = state;
+
+	const array = pagination.ids.map(id => entities[id]);
+
 	var result  = {
 		category: TASK_ASSETS,
-		entities,
-		subAssets,
+		entities: array,
+		assetTasks,
 		expanded,
 		menu
 	};
@@ -112,8 +118,8 @@ function select (state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return { actions: bindActionCreators({ fetchAssets, fetchSubTasks, showMenu,
-  	checkOne, checkAll, checkOneTask,checkAllTask }, dispatch) };
+  return { actions: bindActionCreators(
+  	{ fetchAssets, fetchSubTasks, showMenu, checkOne, checkAll, checkOneTask, checkAllTask }, dispatch) };
 }
 
 

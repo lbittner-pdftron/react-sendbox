@@ -3,19 +3,29 @@ import { bindActionCreators } 		from 'redux';
 import { connect } 					from 'react-redux';
 import { searchTerm } 				from '../../actions/searchActions';
 
+const SEARCH_INPUT = 'SEARCH_INPUT';
+
 class SearchBar extends Component {
 	componentDidMount() {
-		console.log('SearchBar', this.props)
+		// console.log('SearchBar', this.props)
 	}
 	onBlurHandler(event) {
-		console.log('onBlurHandler',event)
+		// console.log('onBlurHandler',event)
 
 	}
 	onFocusHandler(event) {
-		console.log('onFocusHandler',event)
+		// console.log('onFocusHandler',event)
+	}
+	getInputValue() {
+		return React.findDOMNode(this.refs[SEARCH_INPUT]).value.trim();
+	}
+	onSubmitHandler(event) {
+		event.preventDefault();
+		var text = this.getInputValue();
+		console.log(text)
 	}
 	onChangeHandler(event) {
-		console.log('onChangeHandler',event)
+		// console.log('onChangeHandler',event)
 		this.props.actions.searchTerm('sometext')
 	}
 	render() {
@@ -44,8 +54,8 @@ class SearchBar extends Component {
 						</a>
 						<ul style={menuStyle} id="asset-filter" className="f-dropdown">
 							{
-								menu.map(function(item) {
-									return (<li onClick={this.onFilterSelect}>
+								menu.map(function(item, i) {
+									return (<li key={i} onClick={this.onFilterSelect}>
 												<a href="">{item.label}</a>
 											</li>);
 								}, this)
@@ -53,10 +63,13 @@ class SearchBar extends Component {
 						</ul>
 					</div>
 					<div className="small-8 left">
-						<input type="text" placeholder="&#xF002; Search by" style={fontAwesome}
-							onBlur={::this.onBlurHandler}
-							onFocus={::this.onFocusHandler}
-							onChange={::this.onChangeHandler}/>
+						<form onSubmit={::this.onSubmitHandler}>
+							<input style={fontAwesome} type="text" placeholder="&#xF002; Search by" ref={SEARCH_INPUT}
+								onBlur={::this.onBlurHandler}
+								onFocus={::this.onFocusHandler}
+								onChange={::this.onChangeHandler}
+								/>
+						</form>
 					</div>
 				</div>
 			);
