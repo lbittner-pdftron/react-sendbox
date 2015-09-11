@@ -33,30 +33,31 @@ class MainSection extends Component {
 
 	render() {
 		const { entities, menu, setting } = this.props;
-		const { actions: { showMenu, checkOne, checkOneTask, checkAllTask }} = this.props;
-		//checkOneTask(entity.id, id)
+		const { actions: { showMenu, checkOne, checkAll, checkOneTask, checkAllTask }} = this.props;
 		return (
 			<div className="asset-list-area">
 
 				<ul className='asset-item-list'>
 					{
 						entities.map( function(entity, index) {
-							var tasks = this.props.assetTasks[entity.id]
-							var isChecked = false//setting.selected.indexOf(entity.id) > -1
-							return (<AssetItem
-										key={index}
+							var tasks = this.props.assetTasks[entity.id];
+							let taskList = {};
+							if (tasks) {
+								taskList = Object.assign(tasks, this.props.libraryPanel.tasks[entity.id])
+							}
+							var isChecked = setting.selected.indexOf(entity.id) > -1;
+
+							return (<AssetItem key={index}
 										isChecked={isChecked}
-										subTasks={tasks}
+										tasks={taskList}
 										entity={entity}
 										onShowMenu={() => showMenu(entity.id)}
 										onCheckOne={() => checkOne(TASK_ASSETS, entity.id)}
 										onFetchTasks={() => this.fetchSubTasks(entity.id)}
-
-										onCheckOneTask={(id) => checkOne(TASK_TASKS, entity.id, id) }
-										onCheckAllTask={() => checkAllTask(entity.id)}
-
+										markOne={(id) => checkOneTask(entity.id, id) }
+										markAll={(event) => checkAllTask(entity.id, event.target.checked)}
 										isMenuOpen={entity.id === menu}
-										isExpended={this.state.expanded[entity.id]  || false}
+										isExpanded={this.state.expanded[entity.id]  || false}
 									/>);
 						}, this)
 					}
@@ -65,5 +66,7 @@ class MainSection extends Component {
 		);
 	}
 }
+
+
 
 export default MainSection;

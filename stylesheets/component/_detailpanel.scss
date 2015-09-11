@@ -1,17 +1,10 @@
 $detailPanHeight: calc(#{$sub-menu-height});
-.details-panel{
+.entity-info-panel{
 	border-left: 1px $light-grey solid;
 	background: $dark-grey;
-	height: 100%;
+	height: 100vh;
 	height: calc(100% - 58px);
 	max-width: 100%;
-	position: absolute;
-	right: 0;
-	//padding-right: 1rem;
-	.details-content{
-		padding: 1rem;
-		max-width: 100%;
-	}
 	.mavis-field-label{
 		font-weight: $font-weight-bold;
 	}
@@ -20,8 +13,11 @@ $detailPanHeight: calc(#{$sub-menu-height});
 		color: $iron;
 	}
 	.tabs .tab-title{
+		&:first-of-type a.active{
+			border-left: none;
+		}
 		&:hover{
-			background-color: $tabs-navigation-hover-bg-color !important;
+			background-color: $light-grey !important;
 		}
 		a.active{
 			background-color: $dark-grey;
@@ -32,64 +28,45 @@ $detailPanHeight: calc(#{$sub-menu-height});
 		}
 	}
 }
-.details-top{
-	.milestone{
-		height: 200px;
-		@include border-size(1px, $light-grey);
-		background-color: $mid-grey;
-		padding: 0;
-		color: $base;
-		overflow: hidden;
-		.milestone-title{
-			background-color: $light-grey;
-			font-weight: $font-weight-bold;
-			color: $gainsboro;
-			font-size: 0.9rem;
+.entity-info-header, .entity-info-overview{
+	padding: 0 1rem;
+}
+
+.milestone{
+	height: 200px;
+	@include border-size(1px, $light-grey);
+	background-color: $mid-grey;
+	padding: 0;
+	color: $base;
+	overflow: hidden;
+	margin-bottom: 1rem;
+	.milestone-title{
+		background-color: $light-grey;
+		font-weight: $font-weight-bold;
+		color: $gainsboro;
+		font-size: 0.9rem;
+		padding: 0.2rem 0.4rem;
+		border-bottom: 1px solid $light-grey;
+	}
+	.milestone-table{
+		list-style: none;
+		overflow-y: auto !important;
+		height: 100%;
+		margin: 0;
+		li{
+			font-size: 0.7rem;
 			padding: 0.2rem 0.4rem;
 			border-bottom: 1px solid $light-grey;
 		}
-		.milestone-table{
-			list-style: none;
-			overflow-y: auto !important;
-			height: 100%;
-			margin: 0;
-			li{
-				font-size: 0.7rem;
-				padding: 0.2rem 0.4rem;
-				border-bottom: 1px solid $light-grey;
-			}
-		}
-
 	}
 }
-
-.tabs{
-	font-weight: $font-weight-bold;
-	position: relative;
-	.tab-title{
-		&:first-of-type a.active{
-			border-left: none;
-		}
-		a.active{
-			box-shadow: inset 0 5px 0 0 $button-hover-color;
-			border-bottom: 1px solid $mid-grey;
-			z-index: 1000;
-			&:hover{
-				background-color: $dark-grey !important;
-			}
-		}
-		a:hover{
-			background-color: $dark-grey !important;
-		}
-	}
-}
-.details-content-area{
+.entity-info-details-tabcontent{
 	z-index: 0;
 	width: 100%;
 	margin: -1px 0 0 0;
 	padding-top: 0.5rem;
 	background: $dark-grey;
-	height: calc(100% - 152px);
+	height: 100vh;
 	border-top: 1px solid $button-hover-color;
 	.content{
 		height: 100%;

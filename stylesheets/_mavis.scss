@@ -70,10 +70,6 @@ a{
 	margin-top: -0.6rem;
 	padding: 0.2rem 0.5rem !important;
 }
-.mavis-action-menu{
-	width: 15px;
-	height: 15px;
-}
 .expand-collection{
 	width: 15px;
 	height: 15px;
@@ -84,6 +80,27 @@ label.inline{
 .line-divider{
 	margin: 0;
 }
+//Tabs
+.tabs{
+	font-weight: $font-weight-bold;
+	position: relative;
+	.tab-title{
+		&:first-of-type a.active{
+			border-left: none;
+		}
+		a.active{
+			box-shadow: inset 0 5px 0 0 $button-hover-color;
+			border-bottom: 1px solid $mid-grey;
+			z-index: 1000;
+			&:hover{
+				background-color: $dark-grey !important;
+			}
+		}
+		a:hover{
+			background-color: $dark-grey !important;
+		}
+	}
+}
 //Status layout and color
 .mavis-status{
 	top: 3px;
@@ -93,7 +110,7 @@ label.inline{
 	position: relative;
 	display: block;
 	float: left;
-	margin-right: 0.2rem;
+	margin: 0 0.2rem 0.2rem 0.4rem;
 	@include border-radius(3px);
 }
 .status-0{
@@ -101,6 +118,27 @@ label.inline{
 }
 .status-1{
 	background-color: #00a81e !important; /*Online*/
+}
+//Progress bar
+.asset-progress-bar{
+	position: relative;
+	background: $light-grey;
+	@include transformY(50%, -50%);
+	@include border-radius(4px);
+	width: 80px;
+	height: 7px;
+	border-top: 1px solid $jet;
+	box-shadow: inset 0 -1px 0 rgba(255,255,255, 0.2);
+	.complete-percentage{
+		box-shadow: inset 0 1px 0 rgba(255,255,255, 0.5);
+		@include border-radius(4px);
+		background-color: green;
+		content: " ";
+		height: 5px;
+		&.percent50{
+			width: 50%;
+		}
+	}
 }
 //Disable UI Status
 .disabled{

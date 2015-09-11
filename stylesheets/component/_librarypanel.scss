@@ -1,46 +1,3 @@
-.loader {
-  margin: 24px auto;
-  font-size: 10px;
-  position: relative;
-  text-indent: -9999em;
-  border-top: 0.5em solid rgba(255, 255, 255, 0.2);
-  border-right: 0.5em solid rgba(255, 255, 255, 0.2);
-  border-bottom: 0.5em solid rgba(255, 255, 255, 0.2);
-  border-left: 0.5em solid #ffffff;
-  -webkit-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  transform: translateZ(0);
-  -webkit-animation: load8 1.1s infinite linear;
-  animation: load8 1.1s infinite linear;
-
-}
-.loader,
-.loader:after {
-  border-radius: 50%;
-  width: 3em;
-  height: 3em;
-}
-@-webkit-keyframes load8 {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-@keyframes load8 {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-
 .asset-area{
 	border-right: 1px $light-grey solid;
 	overflow: none;
@@ -55,14 +12,14 @@
 		}
 		.asset-header{
 			align-content: space-around !important;
-			padding: 0.2rem 0;
+			padding: 0 0.8rem 0 0.3rem;
 			margin-top: 0.6rem;
 			label{
 				margin-top: -0.5rem;
 			}
 			.clear-assets{
 				font-size: 0.6rem;
-				margin-left: 5px;
+				margin-left: 0;
 			}
 			.assets-action-items{
 				margin-top: -25px;
@@ -110,65 +67,60 @@
 		box-shadow: inset 0 1px 0 0 $light-grey;
 		border-top: 1px solid $black;
 		padding: 0.2rem 0 0;
-		height: 50px;
+		height: 40px;
 		position: relative;
 		min-width: 220px;
 		cursor: pointer;
 		box-sizing: border-box;
 		background-color: $mid-grey;
 		clear: both;
+		overflow-y: none !important;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
 		input[type="checkbox"] + label{
-			margin: 0.1rem 0.4rem 0 0.6rem;
+			margin: -0.2rem 0.4rem 0;
+		}
+		.item-expand{
+		    float: left;
+		    vertical-align: baseline;
+		    @include transformY(0, 15%);
+			color: $base;
+			margin-right: 0.4rem;
+			margin-bottom: 0;
 		}
 		img{
-			width: 50px;
-			height: auto;
-			margin-right: 0.4rem;
-			-webkit-transform: translateY(25%);
-				-ms-transform: translateY(25%);
-					transform: translateY(25%);
+			width: 35px;
+			height: 20px;
+			@include transformY(0, 25%);
 		}
 		.asset-text-area{
-			position: absolute;
-			left: 90px;
+			position: relative;
+			@include transformY(35%, -30%);
 			p{
-				width: 110px;
-				line-height: 1;
+				width: 80px;
+				line-height: 1.2;
 				font-size: 0.7rem;
 				margin-left: 10px;
 			}
 		}
 		.item-util-control{
+			box-shadow: inset 1px 0 0 0 $black;
+			border-left: 1px solid $light-grey;
 			background-color: $dark-grey;
 			height: 100%;
-			margin: -0.2rem 0 0;
 			position: absolute;
+			top: 0;
 			right: 0;
 			list-style: none;
-			li{
-				height: 50%;
-				padding: 0.1rem 0.2rem 0.3rem 0.3rem;
-				background-color: $dark-grey;
-				&:hover{
-					background-color: $button-hover-color;
-					a{
-						color: white;
-					}
-				}
-				&:active{
-					background-color: $button-active-color;
-				}
+			color: $base;
+			padding: 0.5rem 0.2rem;
+			&:hover{
+				background-color: $button-hover-color;
+				color: white;
 			}
-			.item-menu{
-				border-bottom: 1px black solid;
-				a{
-					color: $base;
-				}
-			}
-			.item-expand{
-				a{
-					color: $base;
-				}
+			&:active{
+				background-color: $button-active-color;
 			}
 		}
 	}
@@ -202,13 +154,13 @@
 			font-weight: $font-weight-bold;
 			input[type="checkbox"] + label{
 				margin-top: -0.6rem;
-				margin-left: 0.6rem;
+				margin-left: 0.4rem;
 			}
 			> div{
-				width: 25%;
+				width: 23%;
 			}
 		}
-		.task-content{
+		.task-info-item{
 			width: 100%;
 			display: flex;
 			flex-direction: row;
@@ -218,10 +170,36 @@
 			padding: 0.4rem 0;
 			input[type="checkbox"] + label{
 				margin-top: -0.6rem;
-				margin-left: 0.6rem;
+				margin-left: 0.4rem;
 			}
 			> div{
-				width: 25%;
+				width: 23%;
+			}
+			i{
+				position: relative;
+				@include transformY(0, 20%);
+				margin: 0 0.4rem;
+			}
+			.global-asset{
+				color: transparent;
+			}
+			&.is-global{
+				.global-asset{
+					color: $base;
+				}
+			}
+			.task-item-menu{
+				display: none;
+			}
+			&.item-selected{
+				.task-item-menu{
+					display: block;
+				}
+			}
+			&.item-selected.is-global{
+				.global-asset{
+					color: $white;
+				}
 			}
 		}
 	}

@@ -1,3 +1,4 @@
+/* jslint esnext: true  */
 import { createStore, applyMiddleware, combineReducers }
 										from 'redux';
 import { Schema, arrayOf, normalize }   from 'normalizr';
@@ -13,12 +14,6 @@ window.normalize = normalize;
 
 var EntitySchema = new Schema('data', { idAttribute: 'id'});
 
-
-
-const userSchema = new Schema('users', {
-  idAttribute: 'login'
-});
-
 const API_ROOT = 'http://localhost:3000/api/';
 
 function getNextPageUrl(response) {
@@ -32,10 +27,10 @@ function getNextPageUrl(response) {
 }
 function callApi(endpoint, queryString) {
 	if (endpoint.indexOf(API_ROOT) === -1 && queryString) {
-		endpoint = API_ROOT + endpoint + '?' + queryString
+		endpoint = API_ROOT + endpoint + '?' + queryString;
 	}
 	else if (endpoint.indexOf(API_ROOT) === -1 && !queryString) {
-		endpoint = API_ROOT + endpoint
+		endpoint = API_ROOT + endpoint;
 	}
 
 	return fetch(endpoint , {headers: {'Authorization': 'sardor'}})
@@ -62,17 +57,17 @@ const api = store => next => action => {
  	}
  	let { endpoint } = callAPI;
  	const { types, category, filter } = callAPI;
- 	var queryString = ' '
+ 	var queryString = ' ';
 
  	if(typeof filter !== 'string') {
- 		queryString = qs.stringify(filter)
+ 		queryString = qs.stringify(filter);
  	}
 
  	const [requestType, successType, failureType] = types;
  	function actionWith(data) {
  		const finalAction = Object.assign({}, action, data);
  		delete finalAction['CALL_API'];
- 		console.log('finalAction',action,finalAction)
+ 		// // console.log('finalAction',action,finalAction)
  		return finalAction;
  	}
 

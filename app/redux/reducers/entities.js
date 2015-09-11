@@ -1,20 +1,13 @@
-import { MARK_ONE, MARK_ALL, SHOW_CHILDREN, ENTITY_SUCCESS } from '../constants/ActionTypes';
+/* jslint esnext: true  */
 
-import {ENTITY_ASSETS_REQUEST,
+import {
 		ENTITY_ASSETS_SUCCESS,
-		ENTITY_ASSETS_FAILURE,
-
 		ENTITY_SUBTASK_REQUEST,
 		ENTITY_SUBTASK_SUCCESS,
 		ENTITY_SUBTASK_FAILURE,
-
-		ENTITY_GROUPS_REQUEST,
 		ENTITY_GROUPS_SUCCESS,
-		ENTITY_GROUPS_FAILURE,
 		TASK_ASSETS,
-		TASK_TASKS,
 		TASK_GROUPS,
-		TASK_PROJECTS,
 		CHECK_ONE,CHECK_ALL,
 		CHECK_ONE_TASK,
 		CHECK_ALL_TASK,
@@ -22,14 +15,11 @@ import {ENTITY_ASSETS_REQUEST,
 
 import union from 'lodash/array/union';
 import merge from 'lodash/object/merge';
-import _ 	from 'lodash';
-import { combineReducers } from 'redux';
 
 
 
 
 export function groups(state = { entities:[], expanded: {}, assetTasks:{} }, action) {
-	var stub1 = state
 	switch (action.type) {
 		case ENTITY_GROUPS_SUCCESS:
 			if(action.response && action.response.data) {
@@ -50,18 +40,11 @@ export function groups(state = { entities:[], expanded: {}, assetTasks:{} }, act
 }
 
 export function assets(state = { entities:{}, expanded: {}, assetTasks:{} }, action) {
-
-	var stub2 = state
 	switch (action.type) {
 		case ENTITY_ASSETS_SUCCESS:
 			if(action.response && action.response.entities) {
-
 				var nassetTasks = Object.assign({}, state.assetTasks);
-				// var nEntities =  union(state.entities, action.response.data);
-				var nextPageUrl = action.response.nextPageUrl;
 				var nEntities = merge({}, state.entities, action.response.entities.data);
-				console.log(nEntities)
-				debugger;
 				return  Object.assign({}, state, {
 					entities: nEntities,
 					assetTasks: nassetTasks,
@@ -75,7 +58,7 @@ export function assets(state = { entities:{}, expanded: {}, assetTasks:{} }, act
 					entities: checkboxes(state.entities, action),
 					assetTasks: state.assetTasks,
 					expanded: state.expanded
-				});;
+				});
 		default:
 			return state;
 	}
@@ -98,23 +81,23 @@ export function assets(state = { entities:{}, expanded: {}, assetTasks:{} }, act
 // 					selected: newArr,
 // 				});
 
-// 				console.log('updateMe', result)
+// 				// console.log('updateMe', result)
 // 				return result
 // 		default:
 // 			return state
 // 	}
 // }
+
 function updateMe( state = { expanded:[], selected:[] }, action ) {
+
 	switch(action.type) {
 		case 'CHECK_ONEX':
-			var index = state.selected.indexOf(action.id);
-			if (index > -1) state.selected.splice(index, 1);
-			else state.selected.push(action.id);
+			var newState = Object.assign({}, state);
+			var index = newState.selected.indexOf(action.id);
+			if (index > -1) newState.selected.splice(index, 1);
+			else newState.selected.push(action.id);
 
-			return Object.assign({}, state, {
-				expanded: state.expanded,
-				selected: state.selected
-			});
+			return newState;
 
 		case 'CHECK_ALLX':
 			return Object.assign({}, state, {
@@ -125,31 +108,29 @@ function updateMe( state = { expanded:[], selected:[] }, action ) {
 			return state;
 	}
 }
-export function setting(state = {}, action) {
+// export function setting(state = {}, action) {
 
 
-	switch(action.type) {
-		case 'CHECK_ALLX':
-		case 'CHECK_ONEX':
-			debugger
-			const key = action.category;
-			return Object.assign({}, state, {
-		        [key]: updateMe(state[key], action)
-		      });
-		default:
-			return state
+// 	switch(action.type) {
+// 		case 'CHECK_ALLX':
+// 		case 'CHECK_ONEX':
+// 			debugger
+// 			const key = action.category;
+// 			return Object.assign({}, state, {
+// 		        [key]: updateMe(state[key], action)
+// 		      });
+// 		default:
+// 			return state
 
 
-	}
-}
+// 	}
+// }
 
 export function libraryPanel(state = { assets: { expanded:[], selected:[] }, tasks: {} }, action) {
 	switch(action.type) {
 		case 'CHECK_ALLX':
 		case 'CHECK_ONEX':
-			debugger
 			if(action.category === 'assets') {
-				const key = action.category;
 				return Object.assign({}, state, {
 			        assets: updateMe(state.assets, action),
 			        tasks: state.tasks
@@ -157,15 +138,19 @@ export function libraryPanel(state = { assets: { expanded:[], selected:[] }, tas
 			}
 			else if(action.category === 'tasks') {
 				const key = action.assetId;
-				if(state.tasks[action.assetId])
-					state.tasks[action.assetId] = { expanded:[], selected:[] }
-				return Object.assign({}, state, {
+
+				var res =  Object.assign({}, state, {
 			        assets: state.assets,
-			        tasks: updateMe(state.tasks[action.assetId], action),
+			        tasks: Object.assign({},state.tasks, {
+			        	[key]: updateMe(state.tasks[key], action)
+			        })
 		      	});
+
+		      	return res;
 			}
+			return state;
 		default:
-			return state
+			return state;
 	}
 }
 
@@ -216,7 +201,7 @@ function tasks(state = {isFetching:false, didInvalidate:false, items:[]}, action
 				didInvalidate: false
 			});
 		case ENTITY_SUBTASK_SUCCESS:
-			var ids = action.response.result
+			var ids = action.response.result;
 			var items = ids.map(id => action.response.entities.data[id]);
 
 			return Object.assign({}, state, {
@@ -238,12 +223,11 @@ export function assetTasks(state = {}, action) {
 		case CHECK_ONE_TASK:
 		case CHECK_ALL_TASK:
 			var it = state[action.entityId]; // {}
-			it.items = checkboxes(it.items, action)
+			it.items = checkboxes(it.items, action);
 			return Object.assign({},
 				state,
 				it
 			);
-			return state;
 		default:
 			return state;
 	}
@@ -262,16 +246,16 @@ export function pagination(state = {
 			        groups: state.groups
 			      });
 			}
-			return state
+			return state;
 		case ENTITY_GROUPS_SUCCESS:
 			if(action.response && action.response.nextPageUrl) {
-				var groups = { nextPageUrl: action.response.nextPageUrl }
+				var groups = { nextPageUrl: action.response.nextPageUrl };
 				return merge({}, state, {
 					assets: state.assets,
 			        groups: groups
 			      });
 			}
-			return state
+			return state;
 		default:
 			return state;
 	}
@@ -279,14 +263,13 @@ export function pagination(state = {
 
 
 export function menu(state = -1, action) {
-	var stub3 = state
 	switch (action.type) {
 		case SHOW_MENU:
 			if(state === action.id) {
 				state = -1;
 			}
 			else {
-				state = action.id
+				state = action.id;
 			}
 			return state;
 		default:
@@ -295,16 +278,12 @@ export function menu(state = -1, action) {
 }
 
 export function searches(state = {}, action) {
-
 	switch (action.type) {
 		case 'SEARCH_TERM':
-			console.log('searches',action)
+			// // console.log('searches',action)
 			return state;
 		default:
 			return state;
 	}
 }
-
-
-
 

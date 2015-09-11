@@ -3,7 +3,7 @@ import classNames 						from 'classnames';
 
 class TaskItem extends Component {
 	render() {
-		const { isFetching, onCheckboxMaster, onCheckbox, items } = this.props;
+		const { isFetching, markAll, markOne, items, selected, checkAllTask } = this.props;
 		const entities = items;
 
 		if(isFetching) {
@@ -12,44 +12,42 @@ class TaskItem extends Component {
 					</div>);
 		}
 
-		let total = 0;
-		for (var i = entities.length - 1; i >= 0; i--) {
-			if(entities[i].$checked) total++;
-		}
-
+		var total = (selected) ? selected.length : -1;
+		var uid = guid();
 		return (
 			<div className="task-container">
 				<div className="table-head">
-					<input id={'xxid'} type="checkbox" checked={total === entities.length}/>
-					<label htmlFor={'xxid'} className="left">
-						<span onClick={() => onCheckboxMaster()}></span>
-					</label>
-					<div>Task</div>
+					<input id={uid} type="checkbox" checked={total === entities.length}
+						onChange={(event) => markAll(event)}/>
+					<label htmlFor={uid} className="left"><span></span></label>
+					<div>Name</div>
+					<div>Type</div>
 					<div>Status</div>
-					<div>Artist</div>
 				</div>
 				{
 					entities.map(entity => {
 						let id = 'chk' + entity.id;
-						return (<div className="task-content" key={entity.id}>
-									<input id={id} type="checkbox" checked={entity.$checked}/>
-									<label htmlFor={id} className="left">
-										<span onClick={() => onCheckbox(entity.id)}></span>
-									</label>
-									<div>{entity.name}</div>
+						var isChecked = (selected) ? selected.indexOf(entity.id) > -1 : false;
+
+						return (<div className="task-info-item" key={entity.id}>
+									<input id={id} type="checkbox" checked={isChecked}
+										onChange={() => markOne(entity.id)}/>
+									<label htmlFor={id} className="left"><span></span></label>
+									<div className="ellipsis-text">{entity.name}</div>
+									<div className="ellipsis-text">Entity Type</div>
 									<div>
 										<div className="mavis-status status0 radius"></div>
 										{entity.fields.status}
 									</div>
-									<div>Artist Name</div>
+									<i className="global-asset fa fa-globe"></i>
+									<i className="task-item-menu fa fa-bars"></i>
 								</div>)
 					}, this)
 				}
 				<div className="action-control">
 					<ul className="control-action">
-						<li><a href="#">Edit</a></li>
-						<li><a href="#">Link to..</a></li>
-						<li><a href="#">Delete</a></li>
+						<li>Edit</li>
+						<li>Delete</li>
 					</ul>
 				</div>
 			</div>
@@ -57,5 +55,13 @@ class TaskItem extends Component {
 	}
 }
 
-
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
+}
 export default TaskItem
