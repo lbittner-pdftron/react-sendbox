@@ -34,7 +34,7 @@ class TaskItem extends Component {
 										onChange={() => markOne(entity.id)}/>
 									<label htmlFor={id} className="left"><span></span></label>
 									<div className="ellipsis-text">{entity.name}</div>
-									<div className="ellipsis-text">Entity Type</div>
+									<div className="ellipsis-text">{entity.type}</div>
 									<div>
 										<div className="mavis-status status0 radius"></div>
 										{entity.fields.status}

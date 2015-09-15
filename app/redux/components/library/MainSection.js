@@ -40,10 +40,10 @@ class MainSection extends Component {
 				<ul className='asset-item-list'>
 					{
 						entities.map( function(entity, index) {
-							var tasks = this.props.assetTasks[entity.id];
+							var tasks = this.props.assetDependencies[entity.id];
 							let taskList = {};
 							if (tasks) {
-								taskList = Object.assign(tasks, this.props.libraryPanel.tasks[entity.id])
+								taskList = Object.assign(tasks, this.props.assetPanel.tasks[entity.id])
 							}
 							var isChecked = setting.selected.indexOf(entity.id) > -1;
 

@@ -1,19 +1,21 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 import Tasks from './Tasks';
+
 const ADD = 'ADD';
 const EDIT = 'EDIT';
 const PUBLISH = 'PUBLISH';
 const VIEW = 'VIEW';
-var log =  require('debug')('asset');
+var log =  require('debug')('Xasset');
+
 class AssetItem extends Component {
 	shouldComponentUpdate(nextProps, nextState) {
-		// log('**',this.props.tasks.selected)
-		// return true;
 		return this.props.isExpanded !== nextProps.isExpanded ||
 			this.props.tasks.isFetching !== nextProps.tasks.isFetching ||
-			this.props.tasks.selected !== undefined;
+			this.props.tasks.selected !== undefined ||
+			this.props.isChecked !== nextProps.isChecked;
 	}
+
 	componentDidUpdate(prevProps, prevState) {
 		log('---- update')
 	}

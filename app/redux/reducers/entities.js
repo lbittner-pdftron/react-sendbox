@@ -19,16 +19,16 @@ import merge from 'lodash/object/merge';
 
 
 
-export function groups(state = { entities:[], expanded: {}, assetTasks:{} }, action) {
+export function groups(state = { entities:[], expanded: {}, assetDependencies:{} }, action) {
 	switch (action.type) {
 		case ENTITY_GROUPS_SUCCESS:
 			if(action.response && action.response.data) {
-				var nassetTasks = Object.assign({}, state.assetTasks);
+				var nassetDependencies = Object.assign({}, state.assetDependencies);
 				var nEntities =  union(state.entities, action.response.data);
 				var nextPageUrl = action.response.nextPageUrl;
 				return  Object.assign({}, state, {
 					entities: nEntities,
-					assetTasks: nassetTasks,
+					assetDependencies: nassetDependencies,
 					nextPageUrl,
 					expanded: state.expanded
 				});
@@ -39,15 +39,15 @@ export function groups(state = { entities:[], expanded: {}, assetTasks:{} }, act
 	}
 }
 
-export function assets(state = { entities:{}, expanded: {}, assetTasks:{} }, action) {
+export function assets(state = { entities:{}, expanded: {}, assetDependencies:{} }, action) {
 	switch (action.type) {
 		case ENTITY_ASSETS_SUCCESS:
 			if(action.response && action.response.entities) {
-				var nassetTasks = Object.assign({}, state.assetTasks);
+				var nassetDependencies = Object.assign({}, state.assetDependencies);
 				var nEntities = merge({}, state.entities, action.response.entities.data);
 				return  Object.assign({}, state, {
 					entities: nEntities,
-					assetTasks: nassetTasks,
+					assetDependencies: nassetDependencies,
 					expanded: state.expanded
 				});
 			}
@@ -56,7 +56,7 @@ export function assets(state = { entities:{}, expanded: {}, assetTasks:{} }, act
 		case CHECK_ALL:
 			return Object.assign({}, state, {
 					entities: checkboxes(state.entities, action),
-					assetTasks: state.assetTasks,
+					assetDependencies: state.assetDependencies,
 					expanded: state.expanded
 				});
 		default:
@@ -126,7 +126,7 @@ function updateMe( state = { expanded:[], selected:[] }, action ) {
 // 	}
 // }
 
-export function libraryPanel(state = { assets: { expanded:[], selected:[] }, tasks: {} }, action) {
+export function assetPanel(state = { assets: { expanded:[], selected:[] }, tasks: {} }, action) {
 	switch(action.type) {
 		case 'CHECK_ALLX':
 		case 'CHECK_ONEX':
@@ -189,7 +189,7 @@ function checkboxes(state = [], action) {
 	}
 }
 
-function tasks(state = {isFetching:false, didInvalidate:false, items:[]}, action) {
+function dependencies(state = {isFetching:false, didInvalidate:false, items:[]}, action) {
 	switch (action.type) {
 		case ENTITY_SUBTASK_FAILURE:
 			return Object.assign({}, state, {
@@ -214,12 +214,12 @@ function tasks(state = {isFetching:false, didInvalidate:false, items:[]}, action
 			return state;
 	}
 }
-export function assetTasks(state = {}, action) {
+export function assetDependencies(state = { }, action) {
 	switch (action.type) {
 		case ENTITY_SUBTASK_REQUEST:
 		case ENTITY_SUBTASK_SUCCESS:
 			// debugger;
-			return Object.assign({}, state, {[action.entityId]: tasks(state[action.entityId], action)});
+			return Object.assign({}, state, {[action.entityId]: dependencies(state[action.entityId], action)});
 		case CHECK_ONE_TASK:
 		case CHECK_ALL_TASK:
 			var it = state[action.entityId]; // {}

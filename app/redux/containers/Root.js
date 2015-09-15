@@ -10,8 +10,6 @@ const store = configureStore();
 window.store = store;
 
 
-
-
 export default class Root extends Component {
 
 

@@ -102,20 +102,20 @@ class Library extends Component {
 
 function select (state) {
 	var pagination = state.pagination[TASK_ASSETS];
-	const { assetTasks, menu } = state;
+	const { assetDependencies, menu } = state;
 	const { assets: { entities, expanded } } = state;
 	const array = pagination.ids.map(id => entities[id]);
-	const setting = state.libraryPanel.assets;
-	const libraryPanel = state.libraryPanel;
+	const setting = state.assetPanel.assets;
+	const assetPanel = state.assetPanel;
 
 	var result  = {
 		category: TASK_ASSETS,
 		entities: array,
-		assetTasks,
+		assetDependencies,
 		expanded,
 		menu,
 		setting,
-		libraryPanel
+		assetPanel
 	};
 
 	return result;

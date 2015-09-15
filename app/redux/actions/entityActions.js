@@ -53,7 +53,7 @@ export function fetchAssets(project, category) {
 export function fetchSubTasks(entityId) {
 	return function(dispatch, getState) {
 		// dispatch({ type: 'OPEN', entityId: entityId })
-		var tasks = getState().assetTasks[entityId];
+		var tasks = getState().assetDependencies[entityId];
 		if(tasks) {
 			return dispatch({
 				type: 'EXIST',
@@ -61,7 +61,7 @@ export function fetchSubTasks(entityId) {
 				tasks: tasks
 			});
 		}
-		var url =  'Entities/' + entityId + '/collections';
+		var url =  'Entities/' + entityId + '/dependencies';
 
 		var filter = {
 						filter: {
@@ -112,7 +112,7 @@ export function checkOneTask(assetId, taskId) {
 export function checkAllTask(assetId, isChecked) {
 	return function(dispatch, getState) {
 		debugger;
-		var ids = getState().assetTasks[assetId].items.map((item) => item.id)
+		var ids = getState().assetDependencies[assetId].items.map((item) => item.id)
 
 		var action = {};
 		action.ids = ids;
