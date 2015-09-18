@@ -9,53 +9,12 @@ $collection-list-height: 38px;
 	// padding: 1rem 1rem 3rem;
 	height: 100%;
 	overflow: hidden;
+	background-color: $mid-grey;
 }
 .proj-container{
 	padding: 1rem 0;
 	height: 100%;
 	overflow: hidden;
-}
-.proj-overall-status{
-	width: 100%;
-	box-sizing: border-box;
-	position: relative;
-	height: 70px;
-	margin: 0.6rem 0 0.2rem;
-	li{
-		text-align: center !important;
-		font-weight: $font-weight-normal;
-		border-right: 1px solid $dark-grey;
-		box-shadow: inset -1px 0 0 0 $light-grey;
-		display: flex;
-		align-items: center;
-		height: 60px;
-		.align-text-center{
-			text-align: center;
-		}
-		.icon-container{
-			margin: 0 0.8rem 0 0.4rem;
-			img{
-				width: 40px;
-				height: 40px;
-				display: inline-block;
-				@include transformY(50%, 15%);
-			}
-		}
-		h6{
-			color: $base;
-			font-size: $paragraph-font-size;
-			margin-bottom: 0.4rem;
-		}
-		.status-result {
-			font-family: $body-font-family;
-			font-size: 1.8rem;
-			line-height: 0.4;
-		}
-		&:last-child{
-			border-right: 0;
-			box-shadow: none;
-		}
-	}
 }
 .collection-type-tab{
 	padding-top: 1rem;
@@ -133,12 +92,14 @@ $collection-list-height: 38px;
 	padding-right: 0.6rem;
 	margin-right: -1rem;
 	.collection-item-container{
-		box-shadow: inset 0 -1px 0 0 $light-grey;
+		background-color: $mid-grey;
+		box-shadow: inset 0 1px 0 0 $light-grey;
 		border-top: 1px solid $black;
 		cursor: pointer;
 		clear: both;
 		&:last-child{
 			margin-bottom: 0;
+			border-bottom: 1px solid $black;
 		}
 	}
 	.collection-item{
@@ -149,6 +110,7 @@ $collection-list-height: 38px;
 		wrap: nowrap;
 		position: relative;
 		color: $body-font-color;
+
 		.collection-detail{
 			width: 14%;
 			display: inline-block;

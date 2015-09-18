@@ -1,29 +1,33 @@
+/* jslint esnext: true  */
 import React, { Component } 						from 'react';
 import { bindActionCreators, combineReducers } 		from 'redux';
 import { connect } 									from 'react-redux';
-import { TASK_ASSETS } 								from '../constants/ActionTypes';
+import { TASK_ASSETS, ASSET_PANEL }					from '../../constants/ActionTypes';
 import { fetchAssets, fetchSubTasks,
 		showMenu, checkOne, checkAll,
-		checkOneTask, checkAllTask } 				from '../actions/entityActions';
-import MainSection 									from '../components/library/MainSection';
-import SearchBar 									from '../components/library/SearchBar';
+		checkOneTask, checkAllTask } 				from '../../actions/entityActions';
+import MainSection 									from './MainSection';
+import SearchBar 									from './SearchBar';
+var log =  require('debug')('library');
+
 
 class Library extends Component {
+	componentDidUpdate(prevProps, prevState) {
+		log('update')
+	}
 	componentDidMount() {
-		window.actions = this.props.actions
+		window.actions = this.props.actions;
 		const { actions, category} = this.props;
 		actions.fetchAssets('fantastic', category);
+		log('mount')
 	}
 	onCreateNewEntity() {
 		app.currentPage.trigger('onCreateNewAsset');
 	}
 	render() {
+		log('render')
 		const { actions: { checkAll }} = this.props;
-		var total = 0;
-		for (var i = this.props.entities.length - 1; i >= 0; i--) {
-			if(this.props.entities[i].$checked) total++;
-		}
-
+		var total = this.props.setting.selected.length;
 		return (
 			<div className='asset-panel'>
 				<div className="asset-list-header">
@@ -56,21 +60,19 @@ class Library extends Component {
 
 					{/*------List Header-------*/}
 					<div className="row">
-						<div className="small-12 column">
+						<div className="small-12">
 							<div className="asset-header">
 								<div>
 									<input id="sAll" type="checkbox"
 										checked={total===this.props.entities.length}
-										onChange={() => checkAll()}/>
-									<label htmlFor="sAll" className="left">
-										<span></span>
-									</label>
+										onChange={(event) => checkAll(TASK_ASSETS, event.target.checked, 0)}/>
+									<label htmlFor="sAll" className="left"><span></span></label>
 								</div>
 								<div>
 									<p>
 										<a href="" className="selected-item">{total}</a> Item selected
 										<a href="javascript:void(0)" className="clear-assets"
-											onClick={() => checkAll(true)}>Clear</a>
+											onClick={() => checkAll(TASK_ASSETS, false, 0)}>Clear</a>
 									</p>
 								</div>
 								<div className="assets-action-items right">
@@ -100,18 +102,20 @@ class Library extends Component {
 
 function select (state) {
 	var pagination = state.pagination[TASK_ASSETS];
-
-	const { assetTasks, menu } = state;
+	const { assetDependencies, menu } = state;
 	const { assets: { entities, expanded } } = state;
-
 	const array = pagination.ids.map(id => entities[id]);
+	const setting = state.assetPanel.assets;
+	const assetPanel = state.assetPanel;
 
 	var result  = {
 		category: TASK_ASSETS,
 		entities: array,
-		assetTasks,
+		assetDependencies,
 		expanded,
-		menu
+		menu,
+		setting,
+		assetPanel
 	};
 
 	return result;

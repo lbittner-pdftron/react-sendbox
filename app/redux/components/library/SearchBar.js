@@ -7,14 +7,14 @@ const SEARCH_INPUT = 'SEARCH_INPUT';
 
 class SearchBar extends Component {
 	componentDidMount() {
-		// console.log('SearchBar', this.props)
+		// // console.log('SearchBar', this.props)
 	}
 	onBlurHandler(event) {
-		// console.log('onBlurHandler',event)
+		// // console.log('onBlurHandler',event)
 
 	}
 	onFocusHandler(event) {
-		// console.log('onFocusHandler',event)
+		// // console.log('onFocusHandler',event)
 	}
 	getInputValue() {
 		return React.findDOMNode(this.refs[SEARCH_INPUT]).value.trim();
@@ -22,10 +22,10 @@ class SearchBar extends Component {
 	onSubmitHandler(event) {
 		event.preventDefault();
 		var text = this.getInputValue();
-		console.log(text)
+		// console.log(text)
 	}
 	onChangeHandler(event) {
-		// console.log('onChangeHandler',event)
+		// // console.log('onChangeHandler',event)
 		this.props.actions.searchTerm('sometext')
 	}
 	render() {

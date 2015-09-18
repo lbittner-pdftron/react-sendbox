@@ -1,0 +1,46 @@
+.proj-overall-status{
+	width: 100%;
+	box-sizing: border-box;
+	position: relative;
+	height: 70px;
+	margin: 0.6rem 0 0.2rem;
+
+	li{
+		text-align: center !important;
+		font-weight: $font-weight-normal;
+		border-right: 1px solid $dark-grey;
+		box-shadow: inset -1px 0 0 $light-grey;
+		display: flex;
+		align-items: center;
+		height: 60px;
+		.status-content{
+			display: flex;
+		    margin: 0 auto;
+		    align-content: center;
+		    align-items: center;
+			.status-icon{
+				img{
+					min-width: 20px;
+					width: 40px;
+					height: 40px;
+					display: inline-block;
+					@include transformY(50%, 15%);
+				}
+			}
+			h6{
+				color: $base;
+				font-size: $paragraph-font-size;
+				margin-bottom: 0.4rem;
+			}
+			.status-result{
+				font-family: $body-font-family;
+				font-size: 1.8rem;
+				line-height: 0.4;
+			}
+		}
+		&:last-child{
+			border-right: 0;
+			box-shadow: none;
+		}
+	}
+}

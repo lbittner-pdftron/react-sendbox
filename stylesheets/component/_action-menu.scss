@@ -2,8 +2,8 @@
 	padding: 0;
 	display: none;
 	position: absolute;
-	top: 23px;
-	z-index: 10000000;
+	top: 38px;
+	z-index: 1000000;
 	/*&::before{
 		border: solid 8px;
 	    content: "";
@@ -58,8 +58,9 @@
 	}
 }
 .action-control{
-	margin-top: 0.8rem;
+	margin: 0.6rem 0;
 	height: 20px;
+	cursor: pointer;
 	.control-select{
 		float: left;
 	}
@@ -75,29 +76,10 @@
 		li{
 			display: inline-block;
 			margin: 0;
-			&:first-child a{
-				border-bottom-right-radius: 0;
-				border-top-right-radius: 0;
-				border-bottom-left-radius: 4px;
-				border-top-left-radius: 4px;
-			}
-			&:last-child a{
-				border-bottom-left-radius: 0;
-				border-top-left-radius: 0;
-				border-bottom-right-radius: 4px;
-				border-top-right-radius: 4px;
-				border-right: 0;
-			}
-			&:only-child a{
-				@include border-radius(4px)
-			}
-		}
-		li a{
 			border-top: 1px solid #4f8ba3;
 			color: $base;
-			padding: 0.3rem 0.5rem;
+			padding: 0.2rem 0.5rem;
 			background-color: $button-color;
-			margin: 0;
 			border-right: 1px $jumbo solid;
 			box-shadow: 0 1px 0 1px #1f3f50;
 			img{
@@ -108,6 +90,22 @@
 			&:hover{
 				background-color: $button-hover-color;
 				color: $white;
+			}
+			&:first-child{
+				border-bottom-right-radius: 0;
+				border-top-right-radius: 0;
+				border-bottom-left-radius: 4px;
+				border-top-left-radius: 4px;
+			}
+			&:last-child{
+				border-bottom-left-radius: 0;
+				border-top-left-radius: 0;
+				border-bottom-right-radius: 4px;
+				border-top-right-radius: 4px;
+				border-right: 0;
+			}
+			&:only-child{
+				@include border-radius(4px)
 			}
 		}
 	}
